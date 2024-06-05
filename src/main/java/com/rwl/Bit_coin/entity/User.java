@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 
 @Entity
 @Data
@@ -14,11 +16,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long userId;
     private String firstName;
     private String lastName;
-    @Size(max = 15)
+    @Size(max = 10)
     @Column(name = "phone_number")
     private Integer phoneNumber;
     @Size(max = 50)
@@ -26,4 +28,12 @@ public class User {
     private String email;
     @Size(max = 120)
     private String password;
+    private LocalDate dob;
+    @Size(max=12,min = 12)
+    private String aadharNo;
+    private String aadharUrl;
+    private String imageUrl;
+    private String signatureUrl;
+    private String referralCode;
+
 }
