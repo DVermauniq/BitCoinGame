@@ -17,4 +17,7 @@ public class Query {
     @Enumerated(EnumType.STRING)
     private QueryType queryType;
     private String description;
+    @ManyToOne
+    @JoinColumn
+    private User user;
 }
