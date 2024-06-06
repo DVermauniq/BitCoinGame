@@ -44,4 +44,6 @@ public class User {
     private List<WalletTransactions> walletTransactions;
     @ManyToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Game> games;
+    @ManyToMany(mappedBy = "userList",cascade = CascadeType.ALL)
+    private List<Club> clubList;
 }
