@@ -36,6 +36,7 @@ public class User {
     private String imageUrl;
     private String signatureUrl;
     private String referralCode;
+    private double monthlyWinning;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private BankDetails bankDetails;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)

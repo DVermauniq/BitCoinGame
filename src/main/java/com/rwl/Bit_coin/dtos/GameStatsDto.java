@@ -1,4 +1,4 @@
-package com.rwl.Bit_coin.dto;
+package com.rwl.Bit_coin.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
