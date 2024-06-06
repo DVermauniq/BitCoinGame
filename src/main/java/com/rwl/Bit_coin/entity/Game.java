@@ -15,22 +15,29 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Game {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long gameId;
-    @Enumerated(value = EnumType.STRING)
-    private GameType gameType;
-    private Long numberOfPlayers;
-    private Double totalAmountCollected;
-    private Double amountPerPerson;
-    @Enumerated(value = EnumType.STRING)
-    private GameDuration gameDuration;
-    @Enumerated(value = EnumType.STRING)
-    private GameStatus gameStatus;
-    private List<Long> winnerListByOrder;
-    @ManyToMany(mappedBy = "games",cascade = CascadeType.ALL)
-    private List<User> users;
-    @ManyToMany(mappedBy = "gameList",cascade = CascadeType.ALL)
-    private List<Club> clubList;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long gameId;
 
+	@Enumerated(value = EnumType.STRING)
+	private GameType gameType;
+
+	private Long numberOfPlayers;
+	private Double totalAmountCollected;
+	private Double amountPerPerson;
+
+	@Enumerated(value = EnumType.STRING)
+	private GameDuration gameDuration;
+
+	@Enumerated(value = EnumType.STRING)
+	private GameStatus gameStatus;
+
+	private List<Long> winnerListByOrder;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private List<User> users; // Corrected mappedBy attribute
+
+	@ManyToMany(mappedBy = "gameList", cascade = CascadeType.ALL)
+	private List<Club> clubList;
 }
