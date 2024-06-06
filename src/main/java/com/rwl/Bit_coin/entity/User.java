@@ -43,6 +43,12 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<WalletTransactions> walletTransactions;
     @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
+
+//    @JoinTable(
+//            name = "user_game",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "game_id"))
+
     private List<Game> games;
     @ManyToMany(mappedBy = "userList",cascade = CascadeType.ALL)
     private List<Club> clubList;
