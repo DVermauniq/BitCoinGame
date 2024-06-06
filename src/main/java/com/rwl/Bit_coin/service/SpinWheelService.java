@@ -11,5 +11,8 @@ public interface SpinWheelService {
 	User spinWheel(Long gameId);
 
 	User addUser(String name);
+	
+	
+	User getWinner(long gameId);
 
 }

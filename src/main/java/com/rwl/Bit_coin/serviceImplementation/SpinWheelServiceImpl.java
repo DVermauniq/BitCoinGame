@@ -79,4 +79,22 @@ public class SpinWheelServiceImpl implements SpinWheelService {
 
 		return winner;
 	}
+	
+	@Override
+	public User getWinner(long gameId) {
+		Optional<Game> optionalGame = gameRepository.findById(gameId);
+		if (!optionalGame.isPresent()) {
+			throw new RuntimeException("Game not found");
+		}
+
+		Game game = optionalGame.get();
+		for (User user : game.getUsers()) {
+			if (user.isWinner()) {
+				return user;
+			}
+		}
+		return null;
+	}
+
+
 }
