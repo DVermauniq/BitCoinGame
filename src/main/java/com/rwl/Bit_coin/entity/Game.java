@@ -29,7 +29,7 @@ public class Game {
     private GameStatus gameStatus;
     private List<Long> winnerListByOrder;
     @ManyToMany(mappedBy = "games",cascade = CascadeType.ALL)
-    @JoinColumn
+    @JoinTable()
     private List<User> users;
     @ManyToMany(mappedBy = "gameList",cascade = CascadeType.ALL)
     private List<Club> clubList;
