@@ -1,6 +1,7 @@
 package com.rwl.Bit_coin.entity;
 
 import com.rwl.Bit_coin.enumm.GameDuration;
+import com.rwl.Bit_coin.enumm.GameStatus;
 import com.rwl.Bit_coin.enumm.GameType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,11 +27,20 @@ public class Game {
     private LocalDate date;
     @Enumerated(value = EnumType.STRING)
     private GameDuration gameDuration;
+    @Enumerated(value = EnumType.STRING)
+    private GameStatus gameStatus;
+    private List<Long> winnerListByOrder;
     @ManyToMany(mappedBy = "games",cascade = CascadeType.ALL)
+
     @JoinTable(
             name = "user_game",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id"))
      private List<User> users;
+
+    
+    @ManyToMany(mappedBy = "gameList",cascade = CascadeType.ALL)
+    private List<Club> clubList;
+
 
 }

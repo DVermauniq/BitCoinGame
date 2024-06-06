@@ -23,7 +23,7 @@ public class User {
     private String lastName;
     @Size(max = 10)
     @Column(name = "phone_number")
-    private Integer phoneNumber;
+    private String phoneNumber;
     @Size(max = 50)
     @Email
     private String email;
@@ -43,9 +43,13 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<WalletTransactions> walletTransactions;
     @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
+
 //    @JoinTable(
 //            name = "user_game",
 //            joinColumns = @JoinColumn(name = "user_id"),
 //            inverseJoinColumns = @JoinColumn(name = "game_id"))
+
     private List<Game> games;
+    @ManyToMany(mappedBy = "userList",cascade = CascadeType.ALL)
+    private List<Club> clubList;
 }
