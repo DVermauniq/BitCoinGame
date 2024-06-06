@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Wallet {
+public class WalletTransactions {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long walletId;
@@ -26,4 +26,8 @@ public class Wallet {
     private LocalDate transactionDate;
     @Enumerated(EnumType.STRING)
     private TransactionStatus transactionStatus;
+    @ManyToOne
+    @JoinColumn
+    private User user;
+
 }

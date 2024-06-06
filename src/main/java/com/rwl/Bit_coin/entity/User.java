@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -35,5 +36,14 @@ public class User {
     private String imageUrl;
     private String signatureUrl;
     private String referralCode;
-
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    private BankDetails bankDetails;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Query> queries;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<WalletTransactions> walletTransactions;
+    @ManyToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Game> games;
+    @ManyToMany(mappedBy = "userList",cascade = CascadeType.ALL)
+    private List<Club> clubList;
 }
