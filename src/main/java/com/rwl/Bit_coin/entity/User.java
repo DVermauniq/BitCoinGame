@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 public class User {
     @Id
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long userId;
     private String firstName;
     private String lastName;
@@ -38,19 +38,16 @@ public class User {
     private double monthlyWinning;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private boolean Eliminated;
-    private boolean Winner;
+    private boolean eliminated;
+    private boolean winner;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private BankDetails bankDetails;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Query> queries;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Query> queryList;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<WalletTransactions> walletTransactions;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Game> games;
-//    @ManyToMany
-//    @JoinTable(
-//            name = "user_game",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "game_id")
-//    )    private List<Club> clubList;
+    @ManyToMany
+    private List<Game> gameList;
+    @ManyToMany
+    private List<Club> clubList;
 }

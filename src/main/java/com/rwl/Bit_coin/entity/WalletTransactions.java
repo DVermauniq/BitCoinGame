@@ -29,5 +29,7 @@ public class WalletTransactions {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId",nullable = false)
     private User user;
-
+    @ManyToOne
+    @JoinColumn
+    private Game game;
 }
