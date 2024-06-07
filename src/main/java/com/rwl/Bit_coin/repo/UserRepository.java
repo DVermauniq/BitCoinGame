@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
     @Query("SELECT w FROM User w ORDER BY w.totalPrice DESC")
     List<User> findTop10UsersByMonthlyWinning();
+   User findByUsername(String firstName);
 }
