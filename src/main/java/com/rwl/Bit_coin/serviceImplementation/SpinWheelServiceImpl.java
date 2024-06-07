@@ -62,7 +62,7 @@ public class SpinWheelServiceImpl implements SpinWheelService {
 		scheduler.schedule(() -> {
 			eliminatedUser.setEliminated(true);
 			userRepository.save(eliminatedUser);
-		}, 3, TimeUnit.SECONDS);
+		}, 5, TimeUnit.SECONDS);
 
 		return "User " + eliminatedUser.getUserId() + " has been eliminated";
 	}
@@ -83,4 +83,5 @@ public class SpinWheelServiceImpl implements SpinWheelService {
 		User winner = game.getWinner();
 		return (winner != null) ? "User " + winner.getUserId() + " is the winner" : "No winner yet";
 	}
+
 }

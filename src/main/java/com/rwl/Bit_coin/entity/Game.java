@@ -15,35 +15,33 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Game {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long gameId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long gameId;
 
-	@Enumerated(EnumType.STRING)
-	private GameType gameType;
+    @Enumerated(EnumType.STRING)
+    private GameType gameType;
 
-	private Long numberOfPlayers;
+    private Long numberOfPlayers;
+    private Double totalAmountCollected;
+    private Double amountPerPerson;
 
-	private Double totalAmountCollected;
+    @Enumerated(EnumType.STRING)
+    private GameDuration gameDuration;
 
-	private Double amountPerPerson;
+    @Enumerated(EnumType.STRING)
+    private GameStatus gameStatus;
 
-	@Enumerated(EnumType.STRING)
+    @ManyToOne
+    @JoinColumn(name = "winner_id")
+    private User winner;
 
-	private GameDuration gameDuration;
+    @ElementCollection
+    private List<Long> winnerListByOrder;
 
-	@Enumerated(EnumType.STRING)
+    @ManyToMany(mappedBy = "games")
+    private List<User> users;
 
-	private GameStatus gameStatus;
-
-	private User Winner;
-
-	private List<Long> winnerListByOrder;
-
-//	@ManyToMany(mappedBy = "games")
-	private List<User> users;
-
-//	@ManyToMany(mappedBy = "gameList", cascade = CascadeType.ALL)
-	private List<Club> clubList;
-
+    @ManyToMany(mappedBy = "gameList")
+    private List<Club> clubList;
 }

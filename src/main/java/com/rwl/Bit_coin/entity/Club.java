@@ -1,5 +1,6 @@
 package com.rwl.Bit_coin.entity;
 
+import com.rwl.Bit_coin.enumm.ClubType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,8 +17,17 @@ public class Club {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long clubId;
     private String clubName;
-    @ManyToMany(mappedBy = "clubList",cascade = CascadeType.ALL)
+    @Enumerated(EnumType.STRING)
+    private ClubType clubType;
+
+    @ManyToMany(mappedBy = "clubList")
     private List<User> userList;
-    @ManyToMany(mappedBy = "clubList",cascade = CascadeType.ALL)
+
+    @ManyToMany
+    @JoinTable(
+        name = "club_game",
+        joinColumns = @JoinColumn(name = "club_id"),
+        inverseJoinColumns = @JoinColumn(name = "game_id")
+    )
     private List<Game> gameList;
 }
