@@ -1,18 +1,15 @@
 package com.rwl.Bit_coin.service;
 
-import java.util.List;
 
-import com.rwl.Bit_coin.entity.User;
+
+import com.rwl.Bit_coin.entity.Game;
+
 
 public interface SpinWheelService {
 
-	List<User> getUsers();
+    Game enterInGame(Long userId, Long gameId);
+    String spinWheel(Long gameId);
+    String getWinner(Long gameId); 
 
-	User spinWheel(Long gameId);
-
-	User addUser(String name);
-	
-	
-	User getWinner(long gameId);
 
 }

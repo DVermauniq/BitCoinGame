@@ -1,9 +1,10 @@
 package com.rwl.Bit_coin.serviceImplementation;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +26,30 @@ public class SpinWheelServiceImpl implements SpinWheelService {
 	private GameRepository gameRepository;
 
 	private Random random = new Random();
+	private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	@Override
-	public List<User> getUsers() {
-		return userRepository.findAll();
+	public Game enterInGame(Long userId, Long gameId) {
+		Game game = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Game not found"));
+		List<User> entries = game.getUsers();
+		User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+		// Stop duplicate entries
+		if (!entries.contains(user)) {
+			entries.add(user);
+			game.setUsers(entries);
+			List<Game> userGames = user.getGames();
+			userGames.add(game);
+			user.setGames(userGames);
+			userRepository.save(user);
+			gameRepository.save(game);
+		}
+		return game;
 	}
 
 	@Override
-	public User spinWheel(Long gameId) {
-		Optional<Game> optionalGame = gameRepository.findById(gameId);
-		if (!optionalGame.isPresent()) {
-			throw new RuntimeException("Game not found");
-		}
-
-		Game game = optionalGame.get();
+	public String spinWheel(Long gameId) {
+		Game game = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Game not found"));
 		List<User> activeUsers = getActiveUsers(game);
 
 		if (activeUsers.size() == 1) {
@@ -47,54 +58,29 @@ public class SpinWheelServiceImpl implements SpinWheelService {
 
 		int index = random.nextInt(activeUsers.size());
 		User eliminatedUser = activeUsers.get(index);
-		eliminatedUser.setEliminated(true);
-		userRepository.save(eliminatedUser);
 
-		return eliminatedUser;
-	}
+		scheduler.schedule(() -> {
+			eliminatedUser.setEliminated(true);
+			userRepository.save(eliminatedUser);
+		}, 3, TimeUnit.SECONDS);
 
-	@Override
-	public User addUser(String name) {
-		User newUser = new User();
-		newUser.setFirstName(name);
-		newUser.setEliminated(false);
-		userRepository.save(newUser);
-		return newUser;
+		return "User " + eliminatedUser.getUserId() + " has been eliminated";
 	}
 
 	private List<User> getActiveUsers(Game game) {
 		return game.getUsers().stream().filter(user -> !user.isEliminated()).collect(Collectors.toList());
 	}
 
-	private User declareWinner(User winner, Game game) {
-		winner.setWinner(true);
-		userRepository.save(winner);
-
-		if (game.getWinnerListByOrder() == null) {
-			game.setWinnerListByOrder(new ArrayList<>());
-		}
-		game.getWinnerListByOrder().add(winner.getUserId());
-
+	private String declareWinner(User winner, Game game) {
+		game.setWinner(winner);
 		gameRepository.save(game);
-
-		return winner;
+		return "User " + winner.getUserId() + " is the winner";
 	}
-	
+
 	@Override
-	public User getWinner(long gameId) {
-		Optional<Game> optionalGame = gameRepository.findById(gameId);
-		if (!optionalGame.isPresent()) {
-			throw new RuntimeException("Game not found");
-		}
-
-		Game game = optionalGame.get();
-		for (User user : game.getUsers()) {
-			if (user.isWinner()) {
-				return user;
-			}
-		}
-		return null;
+	public String getWinner(Long gameId) {
+		Game game = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Game not found"));
+		User winner = game.getWinner();
+		return (winner != null) ? "User " + winner.getUserId() + " is the winner" : "No winner yet";
 	}
-
-
 }

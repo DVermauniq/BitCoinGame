@@ -62,7 +62,7 @@ public class User {
 //            joinColumns = @JoinColumn(name = "user_id"),
 //            inverseJoinColumns = @JoinColumn(name = "game_id")
 //    )
-//    private List<Game> games;
+   private List<Game> games;
 //
  //   @ManyToMany(mappedBy = "userList", cascade = CascadeType.ALL)
     private List<Club> clubList;

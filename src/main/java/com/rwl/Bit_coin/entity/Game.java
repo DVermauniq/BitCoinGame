@@ -23,18 +23,20 @@ public class Game {
 	private GameType gameType;
 
 	private Long numberOfPlayers;
-	
+
 	private Double totalAmountCollected;
-	
+
 	private Double amountPerPerson;
-	
+
 	@Enumerated(EnumType.STRING)
-	
+
 	private GameDuration gameDuration;
-	
+
 	@Enumerated(EnumType.STRING)
-	
+
 	private GameStatus gameStatus;
+
+	private User Winner;
 
 	private List<Long> winnerListByOrder;
 
@@ -43,4 +45,5 @@ public class Game {
 
 //	@ManyToMany(mappedBy = "gameList", cascade = CascadeType.ALL)
 	private List<Club> clubList;
+
 }
