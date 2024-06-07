@@ -24,7 +24,6 @@ public class Game {
     private Long numberOfPlayers;
     private Double totalAmountCollected;
     private Double amountPerPerson;
-    @Enumerated(EnumType.STRING)
     private LocalDate date;
     @Enumerated(EnumType.STRING)
     private GameDuration gameDuration;
@@ -33,20 +32,9 @@ public class Game {
     private List<Long> winnerListByOrder;
     @ManyToOne
     @JoinColumn
-    private User user;
-    @ManyToOne
-    @JoinColumn
     private Club club;
-//    @ManyToMany(mappedBy = "games",cascade = CascadeType.ALL)
-
-    @JoinTable(
-            name = "user_game",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
-     private List<User> users;
-
-    
-    @ManyToMany(mappedBy = "gameList",cascade = CascadeType.ALL)
-    private List<Club> clubList;
-
+    @OneToMany(mappedBy = "game",cascade = CascadeType.ALL)
+    private List<WalletTransactions> walletTransactionsList;
+    @ManyToMany
+    private List<User> user;
 }
