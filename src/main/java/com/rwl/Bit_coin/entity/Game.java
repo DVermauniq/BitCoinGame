@@ -32,8 +32,9 @@ public class Game {
     private List<Long> winnerListByOrder;
     @ManyToOne
     @JoinColumn
-    private User user;
-    @ManyToOne
-    @JoinColumn
     private Club club;
+    @OneToMany(mappedBy = "game",cascade = CascadeType.ALL)
+    private List<WalletTransactions> walletTransactionsList;
+    @ManyToMany
+    private List<User> user;
 }

@@ -21,5 +21,6 @@ public class Club {
     private ClubType clubType;
     @OneToMany(mappedBy = "club",cascade = CascadeType.ALL)
     private List<Game> gameList;
-
+    @ManyToMany
+    private List<User> userList;
 }
