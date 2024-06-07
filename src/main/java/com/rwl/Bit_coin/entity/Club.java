@@ -17,6 +17,7 @@ public class Club {
     private Long clubId;
     private String clubName;
     @ManyToMany(mappedBy = "clubList",cascade = CascadeType.ALL)
+//    @JoinColumns({@JoinColumn(name = "users_Id", referencedColumnName = "userId")})
     private List<User> userList;
     @ManyToMany(mappedBy = "clubList",cascade = CascadeType.ALL)
     private List<Game> gameList;

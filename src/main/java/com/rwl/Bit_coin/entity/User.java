@@ -42,8 +42,14 @@ public class User {
     private List<Query> queries;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<WalletTransactions> walletTransactions;
-    @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
-    private List<Game> games;
+//    @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
+//    private List<Game> games;
     @ManyToMany(mappedBy = "userList",cascade = CascadeType.ALL)
+//    @JoinColumns({@JoinColumn(name = "clubs_id", referencedColumnName = "clubId")})
+    @JoinTable(
+            name="clubss_id",
+            joinColumns=
+            @JoinColumn(name="clubs_id", referencedColumnName="clubId"))
     private List<Club> clubList;
+
 }
