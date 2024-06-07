@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -24,6 +25,8 @@ public class Game {
     private Double totalAmountCollected;
     private Double amountPerPerson;
     @Enumerated(EnumType.STRING)
+    private LocalDate date;
+    @Enumerated(EnumType.STRING)
     private GameDuration gameDuration;
     @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
@@ -34,4 +37,16 @@ public class Game {
     @ManyToOne
     @JoinColumn
     private Club club;
+//    @ManyToMany(mappedBy = "games",cascade = CascadeType.ALL)
+
+    @JoinTable(
+            name = "user_game",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id"))
+     private List<User> users;
+
+    
+    @ManyToMany(mappedBy = "gameList",cascade = CascadeType.ALL)
+    private List<Club> clubList;
+
 }
