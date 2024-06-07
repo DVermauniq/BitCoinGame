@@ -10,11 +10,10 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
-
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -30,20 +29,22 @@ public class User {
     @Size(max = 120)
     private String password;
     private LocalDate dob;
-    @Size(max=12,min = 12)
+    @Size(max = 12, min = 12)
     private String aadharNo;
     private String aadharUrl;
     private String imageUrl;
     private String signatureUrl;
     private String referralCode;
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    private boolean eliminated;
+    private boolean winner;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private BankDetails bankDetails;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Query> queries;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Query> queryList;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<WalletTransactions> walletTransactions;
-    @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
-    private List<Game> games;
-    @ManyToMany(mappedBy = "userList",cascade = CascadeType.ALL)
+    @ManyToMany
+    private List<Game> gameList;
+    @ManyToMany
     private List<Club> clubList;
 }
