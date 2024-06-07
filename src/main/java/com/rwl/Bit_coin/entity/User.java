@@ -10,14 +10,13 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 
-
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long userId;
     private String firstName;
     private String lastName;
@@ -30,20 +29,26 @@ public class User {
     @Size(max = 120)
     private String password;
     private LocalDate dob;
-    @Size(max=12,min = 12)
+    @Size(max = 12, min = 12)
     private String aadharNo;
     private String aadharUrl;
     private String imageUrl;
     private String signatureUrl;
     private String referralCode;
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    private boolean Eliminated;
+    private boolean Winner;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private BankDetails bankDetails;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Query> queries;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<WalletTransactions> walletTransactions;
-    @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Game> games;
-    @ManyToMany(mappedBy = "userList",cascade = CascadeType.ALL)
-    private List<Club> clubList;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "user_game",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "game_id")
+//    )    private List<Club> clubList;
 }
