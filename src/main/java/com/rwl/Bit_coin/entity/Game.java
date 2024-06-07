@@ -19,18 +19,25 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long gameId;
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private GameType gameType;
     private Long numberOfPlayers;
     private Double totalAmountCollected;
     private Double amountPerPerson;
+    @Enumerated(EnumType.STRING)
     private LocalDate date;
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private GameDuration gameDuration;
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
     private List<Long> winnerListByOrder;
-    @ManyToMany(mappedBy = "games",cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn
+    private User user;
+    @ManyToOne
+    @JoinColumn
+    private Club club;
+//    @ManyToMany(mappedBy = "games",cascade = CascadeType.ALL)
 
     @JoinTable(
             name = "user_game",
@@ -41,6 +48,5 @@ public class Game {
     
     @ManyToMany(mappedBy = "gameList",cascade = CascadeType.ALL)
     private List<Club> clubList;
-
 
 }
