@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -18,20 +19,22 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long gameId;
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private GameType gameType;
     private Long numberOfPlayers;
     private Double totalAmountCollected;
     private Double amountPerPerson;
-    @Enumerated(value = EnumType.STRING)
+    private LocalDate date;
+    @Enumerated(EnumType.STRING)
     private GameDuration gameDuration;
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
     private List<Long> winnerListByOrder;
-//    @ManyToMany(mappedBy = "games",cascade = CascadeType.ALL)
-//    @JoinTable()
-//    private List<User> users;
-//    @ManyToMany(mappedBy = "gameList",cascade = CascadeType.ALL)
-//    private List<Club> clubList;
-
+    @ManyToOne
+    @JoinColumn
+    private Club club;
+    @OneToMany(mappedBy = "game",cascade = CascadeType.ALL)
+    private List<WalletTransactions> walletTransactionsList;
+    @ManyToMany
+    private List<User> user;
 }
