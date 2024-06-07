@@ -19,12 +19,6 @@ public class Club {
     private String clubName;
     @Enumerated(EnumType.STRING)
     private ClubType clubType;
-//    @ManyToMany(mappedBy = "clubList",cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "club_game",
-//            joinColumns = @JoinColumn(name = "club_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id")
-//    ) private List<User> userList;
     @OneToMany(mappedBy = "club",cascade = CascadeType.ALL)
     private List<Game> gameList;
 

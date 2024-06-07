@@ -16,7 +16,7 @@ public class UserGameDto {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long gameId;
     @Enumerated(EnumType.STRING)
-    private GameType gameType;
+    private ClubType clubType;
     private Long numberOfPlayers;
     private Double totalAmountCollected;
     private LocalDate startDate;

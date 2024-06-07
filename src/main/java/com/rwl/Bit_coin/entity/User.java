@@ -45,10 +45,11 @@ public class User {
     private List<WalletTransactions> walletTransactions;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Game> games;
-//    @ManyToMany
+//    @ManyToMany(mappedBy = "users")
 //    @JoinTable(
 //            name = "user_game",
 //            joinColumns = @JoinColumn(name = "user_id"),
 //            inverseJoinColumns = @JoinColumn(name = "game_id")
-//    )    private List<Club> clubList;
+//    )
+    private List<Club> clubList;
 }
