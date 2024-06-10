@@ -42,7 +42,7 @@ public class AuctionCardImpl implements AuctionCardService {
 
         List<User> users = new ArrayList<>();
         users.add(user);
-        game.setUsers(users);
+     //   game.setUsers(users);
 
         //  user.setGames(users);
 
@@ -59,7 +59,7 @@ public class AuctionCardImpl implements AuctionCardService {
             User user = optionalUser.get();
 
             // Add the user to the auction's list of participants
-            game.getUsers().add(user);
+     //       game.getUsers().add(user);
 
             gameRepository.save(game);
         } else {

@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -15,33 +16,26 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Game {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long gameId;
-
-    @Enumerated(EnumType.STRING)
-    private GameType gameType;
-
-    private Long numberOfPlayers;
-    private Double totalAmountCollected;
-    private Double amountPerPerson;
-
-    @Enumerated(EnumType.STRING)
-    private GameDuration gameDuration;
-
-    @Enumerated(EnumType.STRING)
-    private GameStatus gameStatus;
-
-    @ManyToOne
-    @JoinColumn(name = "winner_id")
-    private User winner;
-
-    @ElementCollection
-    private List<Long> winnerListByOrder;
-
-    @ManyToMany(mappedBy = "games")
-    private List<User> users;
-
-    @ManyToMany(mappedBy = "gameList")
-    private List<Club> clubList;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long gameId;
+	@Enumerated(EnumType.STRING)
+	private GameType gameType;
+	private Long numberOfPlayers;
+	private Double totalAmountCollected;
+	private Double amountPerPerson;
+	private LocalDate date;
+	private int winner;
+	@Enumerated(EnumType.STRING)
+	private GameDuration gameDuration;
+	@Enumerated(EnumType.STRING)
+	private GameStatus gameStatus;
+	private List<Long> winnerListByOrder;
+	@ManyToOne
+	@JoinColumn
+	private Club club;
+	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+	private List<WalletTransactions> walletTransactionsList;
+	@ManyToMany
+	private List<User> user;
 }

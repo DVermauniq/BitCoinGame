@@ -31,16 +31,13 @@ public class SpinWheelServiceImpl implements SpinWheelService {
 	@Override
 	public Game enterInGame(Long userId, Long gameId) {
 		Game game = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Game not found"));
-		List<User> entries = game.getUsers();
+		List<User> entries = game.getUser();
 		User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
 		// Stop duplicate entries
 		if (!entries.contains(user)) {
 			entries.add(user);
-			game.setUsers(entries);
-			List<Game> userGames = user.getGames();
-			userGames.add(game);
-			user.setGames(userGames);
+			game.setUser(entries);
 			userRepository.save(user);
 			gameRepository.save(game);
 		}
@@ -67,12 +64,13 @@ public class SpinWheelServiceImpl implements SpinWheelService {
 		return "User " + eliminatedUser.getUserId() + " has been eliminated";
 	}
 
-	private List<User> getActiveUsers(Game game) {
-		return game.getUsers().stream().filter(user -> !user.isEliminated()).collect(Collectors.toList());
+	@Override
+	public List<User> getActiveUsers(Game game) {
+		return game.getUser().stream().filter(user -> !user.isEliminated()).collect(Collectors.toList());
 	}
 
 	private String declareWinner(User winner, Game game) {
-		game.setWinner(winner);
+		game.setWinner(0);
 		gameRepository.save(game);
 		return "User " + winner.getUserId() + " is the winner";
 	}
@@ -80,8 +78,12 @@ public class SpinWheelServiceImpl implements SpinWheelService {
 	@Override
 	public String getWinner(Long gameId) {
 		Game game = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Game not found"));
-		User winner = game.getWinner();
+		User winner = game.getUser().stream().filter(User::isWinner).findFirst().orElse(null);
 		return (winner != null) ? "User " + winner.getUserId() + " is the winner" : "No winner yet";
 	}
 
+	@Override
+	public Game getGameById(Long gameId) {
+		return gameRepository.findById(gameId).orElse(null);
+	}
 }
