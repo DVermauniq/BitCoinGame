@@ -36,9 +36,7 @@ public class User {
     private String imageUrl;
     private String signatureUrl;
     private String referralCode;
-    private double monthlyWinning;
-    private boolean winner;
-
+    private double monthlyWinning; //total winning
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Query> queryList;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -47,5 +45,9 @@ public class User {
     private List<Game> gameList;
     @ManyToMany
     private List<Club> clubList;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JoinColumn
+    private List<WinRecord> winRecords;
 }
 

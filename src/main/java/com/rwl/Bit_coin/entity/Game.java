@@ -26,10 +26,11 @@ public class Game {
     private Double amountPerPerson;
     private LocalDate date;
     @Enumerated(EnumType.STRING)
-    private GameDuration gameDuration;
+    private GameDuration gameDuration; //in months
     @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
-    private List<Long> winnerListByOrder;
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+    private List<WinRecord> winnerList;
     @ManyToOne
     @JoinColumn
     private Club club;
