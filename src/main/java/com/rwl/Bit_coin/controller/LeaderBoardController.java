@@ -1,6 +1,7 @@
 package com.rwl.Bit_coin.controller;
 
 import com.rwl.Bit_coin.dtos.GameStatsDto;
+import com.rwl.Bit_coin.entity.User;
 import com.rwl.Bit_coin.serviceImplementation.LeaderBoardServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,12 @@ public class LeaderBoardController {
     LeaderBoardServiceImpl leaderBoardService;
 
     @GetMapping("/getTop10Winner")
-    public List<GameStatsDto> getTop10Winner() throws Exception{
+    public List<User> getTop10Winner() throws Exception{
         return leaderBoardService.getTop10Winner();
     }
 
     @GetMapping("/getWinnerDetails")
-    public ResponseEntity<?> getWinnerDetails(@RequestParam("userId") int userId) throws Exception{
+    public ResponseEntity<?> getWinnerDetails(@RequestParam("userId") Long userId) throws Exception{
         return leaderBoardService.getWinnerDetails(userId);
     }
 }
