@@ -35,6 +35,9 @@ public class User {
     private String imageUrl;
     private String signatureUrl;
     private String referralCode;
+    private double monthlyWinning;
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    private boolean Eliminated;
     private boolean eliminated;
     private boolean winner;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
