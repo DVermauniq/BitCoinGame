@@ -1,6 +1,7 @@
 package com.rwl.Bit_coin.controller;
 
 import com.rwl.Bit_coin.dtos.AuctionCardDto;
+import com.rwl.Bit_coin.dtos.UserDto;
 import com.rwl.Bit_coin.entity.Game;
 import com.rwl.Bit_coin.service.AuctionCardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class AuctionCardController {
         // Assuming you have authentication and the username is available in the security context
         String firstName = "logged-in-username"; // Get username from security context
 
-        Game game = auctionCardService.createAuctionCard(auctionCardDTO,firstName);
+        Game game = auctionCardService.createAuctionCard(auctionCardDTO, firstName);
         if (game != null) {
             return new ResponseEntity<>(game, HttpStatus.CREATED);
         } else {
@@ -29,9 +30,9 @@ public class AuctionCardController {
     }
 
     @PostMapping("/{gameId}/participants/{userId}")
-    public ResponseEntity<String> addParticipantToAuction(@PathVariable Long gameId, @PathVariable Long userId) {
+    public ResponseEntity<String> addParticipantToAuction(@PathVariable Long gameId, @PathVariable Long clubId, @RequestBody UserDto userDto) {
         try {
-            auctionCardService.addUserToAuction(gameId, userId);
+            auctionCardService.addUserToAuctionFromClub(clubId, gameId, userDto);
             return ResponseEntity.ok("User added to the auction successfully");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -39,5 +40,4 @@ public class AuctionCardController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add user to the auction");
         }
     }
-
 }

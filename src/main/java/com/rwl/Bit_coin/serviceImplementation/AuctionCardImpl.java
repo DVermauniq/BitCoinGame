@@ -48,7 +48,7 @@ public class AuctionCardImpl implements AuctionCardService {
 
         List<User> users = new ArrayList<>();
         users.add(user);
-        game.setUsers(users);
+        game.setUser(users);
 
         //  user.setGames(users);
 
@@ -63,7 +63,7 @@ public class AuctionCardImpl implements AuctionCardService {
         User user = new User();
         user.setUserId(userDTO.getUserId());
         user.setFirstName(userDTO.getFirstName());
-        user.setGames(Collections.singletonList(auction));
+        user.setGameList(Collections.singletonList(auction));
 
         club.getUserList().add(user);
 
