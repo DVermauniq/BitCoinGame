@@ -1,5 +1,6 @@
 package com.rwl.Bit_coin.serviceImplementation;
 
+
 import com.rwl.Bit_coin.entity.Game;
 import com.rwl.Bit_coin.entity.User;
 import com.rwl.Bit_coin.repo.GameRepo;
@@ -18,7 +19,6 @@ public class UserGameImpl implements UserGameInterface {
     @Autowired
     UserRepository userRepo;
 
-
     @Override
     public Game enterInGame(Long userId, Long gameId) {
         Game game = gameRepo.findById(gameId).orElseThrow();
@@ -32,4 +32,7 @@ public class UserGameImpl implements UserGameInterface {
         userRepo.save(user);
         return gameRepo.save(game);
     }
+    
+    
+    
 }

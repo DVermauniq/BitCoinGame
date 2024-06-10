@@ -3,18 +3,18 @@ package com.rwl.Bit_coin.controller;
 import com.rwl.Bit_coin.dtos.AuctionCardDto;
 import com.rwl.Bit_coin.dtos.UserDto;
 import com.rwl.Bit_coin.entity.Game;
-import com.rwl.Bit_coin.service.AuctionCardService;
+import com.rwl.Bit_coin.serviceImplementation.AuctionCardImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping("/auction-cards")
 public class AuctionCardController {
 
     @Autowired
-    private AuctionCardService auctionCardService;
+    private AuctionCardImpl auctionCardService;
 
     @PostMapping("/create-auction-card")
     public ResponseEntity<?> createAuctionCard(@RequestBody AuctionCardDto auctionCardDTO) {
@@ -40,4 +40,6 @@ public class AuctionCardController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add user to the auction");
         }
     }
+
 }
+
