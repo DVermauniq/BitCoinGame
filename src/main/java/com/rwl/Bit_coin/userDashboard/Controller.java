@@ -1,4 +1,4 @@
-package com.rwl.Bit_coin.game;
+package com.rwl.Bit_coin.userDashboard;
 
 import com.rwl.Bit_coin.dtos.UserGameDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +17,9 @@ public class Controller {
     @GetMapping("userId")
     public List<List<UserGameDto>> findGamesByUserId(@RequestParam Long userId) {
         return serviceInterface.findGamesByUserId(userId);
+    }
+    @GetMapping("")
+    public Integer countCompletedBcByUserId(Long userId){
+        return serviceInterface.countCompletedBcByUserId(userId);
     }
 }

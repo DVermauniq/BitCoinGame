@@ -30,8 +30,8 @@ public class User {
 	private String password;
 	private LocalDate dob;
 	@Size(max = 12, min = 12)
-	private String aadharNo;
-	private String aadharUrl;
+	private String aadhaarNo;
+	private String aadhaarUrl;
 	private String imageUrl;
 	private String signatureUrl;
 	private boolean winner;
