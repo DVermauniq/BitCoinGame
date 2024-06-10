@@ -17,14 +17,14 @@ import java.util.List;
 @AllArgsConstructor
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long gameId;
     @Enumerated(EnumType.STRING)
     private GameType gameType;
     private Long numberOfPlayers;
     private Double totalAmountCollected;
     private Double amountPerPerson;
-    private LocalDate date;
+    private LocalDate startDate;
     @Enumerated(EnumType.STRING)
     private GameDuration gameDuration;
     @Enumerated(EnumType.STRING)
