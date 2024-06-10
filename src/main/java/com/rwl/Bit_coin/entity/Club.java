@@ -13,14 +13,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Club {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long clubId;
-    private String clubName;
-    @Enumerated(EnumType.STRING)
-    private ClubType clubType;
-    @OneToMany(mappedBy = "club",cascade = CascadeType.ALL)
-    private List<Game> gameList;
-    @ManyToMany
-    private List<User> userList;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long clubId;
+	private String clubName;
+	@Enumerated(EnumType.STRING)
+	private ClubType clubType;
+	@OneToMany(mappedBy = "club", cascade = CascadeType.ALL)
+	private List<Game> gameList;
+	@ManyToMany
+	private List<User> userList;
+
 }

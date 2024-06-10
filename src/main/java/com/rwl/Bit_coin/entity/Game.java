@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Game {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long gameId;

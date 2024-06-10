@@ -1,9 +1,12 @@
 package com.rwl.Bit_coin.serviceImplementation;
 
 import com.rwl.Bit_coin.dtos.AuctionCardDto;
+import com.rwl.Bit_coin.dtos.UserDto;
+import com.rwl.Bit_coin.entity.Club;
 import com.rwl.Bit_coin.entity.Game;
 import com.rwl.Bit_coin.entity.User;
 import com.rwl.Bit_coin.enumm.GameType;
+import com.rwl.Bit_coin.repo.ClubRepository;
 import com.rwl.Bit_coin.repo.GameRepository;
 import com.rwl.Bit_coin.repo.UserRepository;
 import com.rwl.Bit_coin.service.AuctionCardService;
@@ -12,12 +15,15 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AuctionCardImpl implements AuctionCardService {
 
+    @Autowired
+    private ClubRepository clubRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -27,7 +33,7 @@ public class AuctionCardImpl implements AuctionCardService {
 
     @Override
     public Game createAuctionCard(AuctionCardDto auctionCardDTO, String firstName) {
-        User user = userRepository.findByUsername(firstName);
+        User user = userRepository.findByFirstname(firstName);
         if (user == null || !user.getPassword().equals(auctionCardDTO.getPassword())) {
             // Handle invalid user or password mismatch
             return null;
@@ -50,26 +56,29 @@ public class AuctionCardImpl implements AuctionCardService {
     }
 
     @Override
-    public void addUserToAuction(Long gameId, Long userId) {
-        Optional<Game> optionalAuction = gameRepository.findById(gameId);
-        Optional<User> optionalUser = userRepository.findById(userId);
+    public Game addUserToAuctionFromClub(Long clubId, Long gameId, UserDto userDTO) {
+        Club club = clubRepository.findById(clubId).orElseThrow(() -> new RuntimeException("Club not found"));
+        Game auction = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Auction not found"));
 
-        if (optionalAuction.isPresent() && optionalUser.isPresent()) {
-            Game game = optionalAuction.get();
-            User user = optionalUser.get();
+        User user = new User();
+        user.setUserId(userDTO.getUserId());
+        user.setFirstName(userDTO.getFirstName());
+        user.setGames(Collections.singletonList(auction));
+
 
             // Add the user to the auction's list of participants
      //       game.getUsers().add(user);
 
-            gameRepository.save(game);
-        } else {
-            // Handle cases where the auction or user is not found
-            throw new IllegalArgumentException("Auction or user not found");
-        }
+        club.getUserList().add(user);
+
+
+//        return gameRepository.save(club);
+        return null;
+    }
     }
 
 
-    }
+
 
 
 
