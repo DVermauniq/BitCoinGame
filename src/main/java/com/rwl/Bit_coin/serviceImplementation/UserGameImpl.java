@@ -19,19 +19,19 @@ public class UserGameImpl implements UserGameInterface {
     GameRepo gameRepo;
     @Autowired
     UserRepository userRepo;
-
-
     @Override
     public Game enterInGame(Long userId,Long gameId) {
         Game game =gameRepo.findById(gameId).orElseThrow();
-        List<User> entries =game.getUsers();
-        entries.add(userRepo.findById(userId).orElseThrow());
-        game.setUsers(entries);
+        List<User> entries =game.getUser();
         User user =userRepo.findById(userId).orElseThrow();
-        List<Game> usergame = user.getGames();
+        entries.add(user);
+        game.setUser(entries);
+        List<Game> usergame = user.getGameList();
         usergame.add(game);
-        user.setGames(usergame);
+        user.setGameList(usergame);
         userRepo.save(user);
         return gameRepo.save(game);
     }
+
+
 }
