@@ -34,6 +34,5 @@ public class WalletTransactions {
     @JoinColumn
     private Game game;
     @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
-    @JoinColumn
     private List<BankDetails> bank;
 }

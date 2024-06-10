@@ -16,36 +16,33 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Game {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long gameId;
-    @Enumerated(EnumType.STRING)
-    private GameType gameType;
-    private Long numberOfPlayers;
-    private Double totalAmountCollected;
-    private Double amountPerPerson;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long gameId;
+	@Enumerated(EnumType.STRING)
+	private GameType gameType;
+	private Long numberOfPlayers;
+	private Double totalAmountCollected;
+	private Double amountPerPerson;
 
-    private LocalDate startDate;
-    @Enumerated(EnumType.STRING)
-    private GameDuration gameDuration;
-    @Enumerated(EnumType.STRING)
-    private GameStatus gameStatus;
-    private List<Long> winnerListByOrder;
+	private LocalDate startDate;
+	@Enumerated(EnumType.STRING)
+	private GameDuration gameDuration;
+	@Enumerated(EnumType.STRING)
+	private GameStatus gameStatus;
+	private List<Long> winnerListByOrder;
 
-    private LocalDate date;
-    @Enumerated(EnumType.STRING)
-    private GameDuration gameDuration; //in months
-    @Enumerated(EnumType.STRING)
-    private GameStatus gameStatus;
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
-    private List<WinRecord> winnerList;
+	private LocalDate date;
 
-    @ManyToOne
-    @JoinColumn
-    private Club club;
-    @OneToMany(mappedBy = "game",cascade = CascadeType.ALL)
-    private List<WalletTransactions> walletTransactionsList;
-    @ManyToMany
-    private List<User> user;
+	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+	private List<WinRecord> winnerList;
+
+	@ManyToOne
+	@JoinColumn
+	private Club club;
+	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+	private List<WalletTransactions> walletTransactionsList;
+	@ManyToMany
+	private List<User> user;
 
 }
