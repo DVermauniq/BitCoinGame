@@ -38,7 +38,7 @@ public class User {
     private double monthlyWinning;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private boolean Eliminated;
-    private boolean eliminated;
+  //  private boolean eliminated;
     private boolean winner;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private BankDetails bankDetails;

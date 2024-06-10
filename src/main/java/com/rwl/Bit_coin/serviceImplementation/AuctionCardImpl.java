@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class AuctionCardImpl implements AuctionCardService {
@@ -43,12 +43,12 @@ public class AuctionCardImpl implements AuctionCardService {
         game.setGameType(GameType.AUCTION); // Assuming Auction is a game type
         game.setNumberOfPlayers(auctionCardDTO.getNoOfPeople().longValue());
         game.setAmountPerPerson(auctionCardDTO.getAmountPerPerson().doubleValue());
-        game.setDate(auctionCardDTO.getDate());
+    //    game.setDate(auctionCardDTO.getDate());
         // Set other properties from DTO
 
         List<User> users = new ArrayList<>();
         users.add(user);
-        game.setUsers(users);
+     //   game.setUsers(users);
 
         //  user.setGames(users);
 
@@ -63,9 +63,14 @@ public class AuctionCardImpl implements AuctionCardService {
         User user = new User();
         user.setUserId(userDTO.getUserId());
         user.setFirstName(userDTO.getFirstName());
-        user.setGames(Collections.singletonList(auction));
+        user.setGameList(Collections.singletonList(auction));
+
+
+            // Add the user to the auction's list of participants
+     //       game.getUsers().add(user);
 
         club.getUserList().add(user);
+
 
 //        return gameRepository.save(club);
         return null;
