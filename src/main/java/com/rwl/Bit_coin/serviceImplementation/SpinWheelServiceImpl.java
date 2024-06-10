@@ -1,3 +1,4 @@
+
 package com.rwl.Bit_coin.serviceImplementation;
 
 import java.util.List;
@@ -70,7 +71,7 @@ public class SpinWheelServiceImpl implements SpinWheelService {
 	}
 
 	private List<User> getActiveUsers(Game game) {
-		return game.getUser().stream().filter(user -> !user.isEliminated()).collect(Collectors.toList());
+		return game.getUser();
 	}
 
 	private void spinAndDeclareWinner(Game game) {
