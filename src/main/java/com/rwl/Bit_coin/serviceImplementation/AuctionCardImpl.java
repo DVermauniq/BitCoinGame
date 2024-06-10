@@ -33,7 +33,7 @@ public class AuctionCardImpl implements AuctionCardService {
 
     @Override
     public Game createAuctionCard(AuctionCardDto auctionCardDto, String firstName) {
-        User user = userRepository.findByFirstname(firstName);
+        User user = userRepository.findByFirstName(firstName);
         if (user == null || !user.getPassword().equals(auctionCardDto.getPassword())) {
             // Handle invalid user or password mismatch
             return null;
