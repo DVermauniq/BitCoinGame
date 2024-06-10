@@ -24,12 +24,22 @@ public class Game {
     private Long numberOfPlayers;
     private Double totalAmountCollected;
     private Double amountPerPerson;
+
     private LocalDate startDate;
     @Enumerated(EnumType.STRING)
     private GameDuration gameDuration;
     @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
     private List<Long> winnerListByOrder;
+
+    private LocalDate date;
+    @Enumerated(EnumType.STRING)
+    private GameDuration gameDuration; //in months
+    @Enumerated(EnumType.STRING)
+    private GameStatus gameStatus;
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+    private List<WinRecord> winnerList;
+
     @ManyToOne
     @JoinColumn
     private Club club;
@@ -37,4 +47,5 @@ public class Game {
     private List<WalletTransactions> walletTransactionsList;
     @ManyToMany
     private List<User> user;
+
 }
