@@ -40,8 +40,7 @@ public class User {
     private boolean Eliminated;
     private boolean eliminated;
     private boolean winner;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private BankDetails bankDetails;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Query> queryList;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
