@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.rwl.Bit_coin.entity.Game;
 import com.rwl.Bit_coin.entity.User;
-import com.rwl.Bit_coin.enumm.GameStatus;
 import com.rwl.Bit_coin.repo.GameRepository;
 import com.rwl.Bit_coin.repo.UserRepository;
 import com.rwl.Bit_coin.service.SpinWheelService;
@@ -58,10 +57,14 @@ public class SpinWheelServiceImpl implements SpinWheelService {
 			return "All 12 winners have already been determined";
 		}
 
+		// Calculate the delay for one month
+		long oneMonthInMilliseconds = TimeUnit.DAYS.toMillis(30); // Assuming a month has 30 days
+		long initialDelay = 0;
+
 		// Schedule spin wheel to run once a month
 		scheduler.scheduleAtFixedRate(() -> {
 			spinAndDeclareWinner(game);
-		}, 0, 1, TimeUnit.MILLISECONDS);
+		}, initialDelay, oneMonthInMilliseconds, TimeUnit.MILLISECONDS);
 
 		return "Spin wheel scheduled to run monthly for the next 12 months";
 	}
@@ -80,29 +83,18 @@ public class SpinWheelServiceImpl implements SpinWheelService {
 		int index = random.nextInt(activeUsers.size());
 		User winner = activeUsers.get(index);
 
-		// Mark user as eliminated (or winner)
-		winner.setEliminated(true);
+		// Mark user as winner
+		winner.setWinner(true);
 		userRepository.save(winner);
 
 		// Update game with the winner
 		game.getWinnerListByOrder().add(winner.getUserId());
-		game.setWinner(game.getWinnerListByOrder().size());
-
-		// If this was the last winner, mark game as completed
-		if (game.getWinnerListByOrder().size() == 12) {
-			game.setGameStatus(GameStatus.COMPLETED);
-		}
-
 		gameRepository.save(game);
 	}
 
 	@Override
 	public String declareWinner(User user, Game game) {
-		game.getWinnerListByOrder().add(user.getUserId());
-		game.setWinner(game.getWinnerListByOrder().size());
-		game.setGameStatus(GameStatus.COMPLETED);
-		gameRepository.save(game);
-		return "User " + user.getUserId() + " is the winner";
+		throw new UnsupportedOperationException("This method is not supported in this context");
 	}
 
 	@Override
@@ -117,27 +109,4 @@ public class SpinWheelServiceImpl implements SpinWheelService {
 		Long winnerId = winnerListByOrder.get(month - 1);
 		return userRepository.findById(winnerId).orElseThrow(() -> new RuntimeException("Winner not found"));
 	}
-
-//	@Override
-//	public User sendWinningPrice(User user, double prizeamount) {
-//		// Check if the user exists
-//	    if (user == null) {
-//	        throw new IllegalArgumentException("User cannot be null");
-//	    }
-//
-//	    int prizeAmount;
-//		// Check if the prize amount is valid
-//		if (prizeAmount <= 0) {
-//	        throw new IllegalArgumentException("Invalid prize amount");
-//	    }
-//
-//	    // Simulate adding the prize amount to the user's balance
-//	    double currentBalance = user.getBalance();
-//	    double newBalance = currentBalance + prizeAmount;
-//	    user.setBalance(newBalance);
-//
-//	    // Save the updated user information in the repository
-//	    userRepository.save(user);
-//	}
-
 }
