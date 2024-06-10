@@ -11,19 +11,20 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-//    @Query("SELECT * FROM user ORDER BY monthly_winning DESC LIMIT 10")
-//    @Modifying
-//    @Transactional
+
+    @Modifying
+    @Transactional
+    @Query(value = "select * from user order by monthly_winning desc limit 10",nativeQuery = true)
+    List<User> findTop10UsersByMonthlyWinning();
+
+//    @Query("SELECT * FROM user ORDER BY monthlyWinning DESC LIMIT 10;")
 //    List<User> findTop10UsersByMonthlyWinning();
-//   
-////    @Query("SELECT * FROM user ORDER BY monthlyWinning DESC LIMIT 10;")
-////    List<User> findTop10UsersByMonthlyWinning();
-//
-//   User findByFirstName(String firstName);
-//
-////    @Query("SELECT * FROM users ORDER BY monthlyWinning DESC LIMIT 10;")
-////    List<User> findTop10UsersByMonthlyWinning();
-////   User findByUsername(String firstName);
-////   User findByFirstname(String firstName);
+
+   User findByFirstName(String firstName);
+
+//    @Query("SELECT * FROM users ORDER BY monthlyWinning DESC LIMIT 10;")
+//    List<User> findTop10UsersByMonthlyWinning();
+//   User findByUsername(String firstName);
+//   User findByFirstname(String firstName);
 
 }
