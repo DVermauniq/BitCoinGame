@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -32,4 +33,6 @@ public class WalletTransactions {
     @ManyToOne
     @JoinColumn
     private Game game;
+    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
+    private List<BankDetails> bank;
 }

@@ -1,3 +1,4 @@
+
 package com.rwl.Bit_coin.serviceImplementation;
 
 import java.util.List;
@@ -34,56 +35,79 @@ public class SpinWheelServiceImpl implements SpinWheelService {
 		List<User> entries = game.getUser();
 		User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
-		// Stop duplicate entries
+		// Ensure only 12 users can enter the game
+		if (entries.size() >= 12) {
+			throw new RuntimeException("The game already has 12 participants");
+		}
+
+		// Prevent duplicate entries
 		if (!entries.contains(user)) {
 			entries.add(user);
 			game.setUser(entries);
-			userRepository.save(user);
 			gameRepository.save(game);
 		}
+
 		return game;
 	}
 
 	@Override
 	public String spinWheel(Long gameId) {
 		Game game = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Game not found"));
+
+		if (game.getWinnerListByOrder().size() >= 12) {
+			return "All 12 winners have already been determined";
+		}
+
+		// Calculate the delay for one month
+		long oneMonthInMilliseconds = TimeUnit.DAYS.toMillis(30); // Assuming a month has 30 days
+		long initialDelay = 0;
+
+		// Schedule spin wheel to run once a month
+		scheduler.scheduleAtFixedRate(() -> {
+			spinAndDeclareWinner(game);
+		}, initialDelay, oneMonthInMilliseconds, TimeUnit.MILLISECONDS);
+
+		return "Spin wheel scheduled to run monthly for the next 12 months";
+	}
+
+	private List<User> getActiveUsers(Game game) {
+		return game.getUser();
+	}
+
+	private void spinAndDeclareWinner(Game game) {
 		List<User> activeUsers = getActiveUsers(game);
 
-		if (activeUsers.size() == 1) {
-			return declareWinner(activeUsers.get(0), game);
+		if (activeUsers.isEmpty()) {
+			return;
 		}
 
 		int index = random.nextInt(activeUsers.size());
-		User eliminatedUser = activeUsers.get(index);
+		User winner = activeUsers.get(index);
 
-		scheduler.schedule(() -> {
-			eliminatedUser.setEliminated(true);
-			userRepository.save(eliminatedUser);
-		}, 5, TimeUnit.SECONDS);
+		// Mark user as winner
+		winner.setWinner(true);
+		userRepository.save(winner);
 
-		return "User " + eliminatedUser.getUserId() + " has been eliminated";
-	}
-
-	@Override
-	public List<User> getActiveUsers(Game game) {
-		return game.getUser().stream().filter(user -> !user.isEliminated()).collect(Collectors.toList());
-	}
-
-	private String declareWinner(User winner, Game game) {
-		game.setWinner(0);
+		// Update game with the winner
+		game.getWinnerListByOrder().add(winner.getUserId());
 		gameRepository.save(game);
-		return "User " + winner.getUserId() + " is the winner";
 	}
 
 	@Override
-	public String getWinner(Long gameId) {
+	public String declareWinner(User user, Game game) {
+		throw new UnsupportedOperationException("This method is not supported in this context");
+	}
+
+	@Override
+	public User getMonthlyWinner(Long gameId, int month) {
 		Game game = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Game not found"));
-		User winner = game.getUser().stream().filter(User::isWinner).findFirst().orElse(null);
-		return (winner != null) ? "User " + winner.getUserId() + " is the winner" : "No winner yet";
-	}
+		List<Long> winnerListByOrder = game.getWinnerListByOrder();
 
-	@Override
-	public Game getGameById(Long gameId) {
-		return gameRepository.findById(gameId).orElse(null);
+		if (month < 1 || month > winnerListByOrder.size()) {
+			throw new RuntimeException("Invalid month or no winner for the given month");
+		}
+
+		Long winnerId = winnerListByOrder.get(month - 1);
+		return userRepository.findById(winnerId).orElseThrow(() -> new RuntimeException("Winner not found"));
 	}
 }

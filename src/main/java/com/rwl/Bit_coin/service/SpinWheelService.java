@@ -1,7 +1,5 @@
 package com.rwl.Bit_coin.service;
 
-import java.util.List;
-
 import com.rwl.Bit_coin.entity.Game;
 import com.rwl.Bit_coin.entity.User;
 
@@ -11,10 +9,12 @@ public interface SpinWheelService {
 
 	String spinWheel(Long gameId);
 
-	String getWinner(Long gameId);
+	String declareWinner(User user, Game game);
 
-	List<User> getActiveUsers(Game games);
+	User getMonthlyWinner(Long gameId, int month);
 
-	Game getGameById(Long gameId);
+//	User sendWinningPrice(User user, double prizeamount);
+	
+	
 
 }
