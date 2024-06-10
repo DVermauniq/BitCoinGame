@@ -30,11 +30,14 @@ public class User {
     private String password;
     private LocalDate dob;
     @Size(max = 12, min = 12)
-    private String aadharNo;
-    private String aadharUrl;
+    private String aadhaarNo;
+    private String aadhaarUrl;
     private String imageUrl;
     private String signatureUrl;
     private String referralCode;
+    private double monthlyWinning;
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    private boolean Eliminated;
     private boolean eliminated;
     private boolean winner;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)

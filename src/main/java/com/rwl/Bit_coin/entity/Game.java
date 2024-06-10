@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Game {
     @Id
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long gameId;
     @Enumerated(EnumType.STRING)
     private GameType gameType;
