@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class AuctionCardImpl implements AuctionCardService {
@@ -63,7 +63,7 @@ public class AuctionCardImpl implements AuctionCardService {
         User user = new User();
         user.setUserId(userDTO.getUserId());
         user.setFirstName(userDTO.getFirstName());
-        user.setGames(Collections.singletonList(auction));
+        user.setGameList(Collections.singletonList(auction));
 
 
             // Add the user to the auction's list of participants
