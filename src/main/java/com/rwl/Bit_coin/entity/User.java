@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long userId;
@@ -36,9 +37,6 @@ public class User {
     private String signatureUrl;
     private String referralCode;
     private double monthlyWinning;
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-    private boolean Eliminated;
-    private boolean eliminated;
     private boolean winner;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -50,3 +48,4 @@ public class User {
     @ManyToMany
     private List<Club> clubList;
 }
+

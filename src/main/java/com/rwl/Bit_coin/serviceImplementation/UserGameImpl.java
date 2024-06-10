@@ -1,12 +1,11 @@
 package com.rwl.Bit_coin.serviceImplementation;
 
-import com.rwl.Bit_coin.dtos.EntryDto;
+
 import com.rwl.Bit_coin.entity.Game;
 import com.rwl.Bit_coin.entity.User;
 import com.rwl.Bit_coin.repo.GameRepo;
 import com.rwl.Bit_coin.repo.UserRepository;
 import com.rwl.Bit_coin.service.UserGameInterface;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +32,9 @@ public class UserGameImpl implements UserGameInterface {
         return gameRepo.save(game);
     }
 
+    @Override
+    public void startGame(int amount, String password) {
+
+    }
 
 }

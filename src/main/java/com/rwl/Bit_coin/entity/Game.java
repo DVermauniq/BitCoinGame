@@ -38,4 +38,5 @@ public class Game {
     @ManyToMany
     private List<User> user;
 
+
 }
