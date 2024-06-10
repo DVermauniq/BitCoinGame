@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long userId;
@@ -50,4 +49,3 @@ public class User {
     @JoinColumn
     private List<WinRecord> winRecords;
 }
-
