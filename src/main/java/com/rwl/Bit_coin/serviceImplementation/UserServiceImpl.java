@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserInterfaceService {
         userResponseDto.setEmail(user.getEmail());
         userResponseDto.setPhoneNumber(user.getPhoneNumber());
         userResponseDto.setDob(user.getDob());
-        userResponseDto.setAadharNo(user.getAadharNo());
+        userResponseDto.setAadharNo(user.getAadhaarNo());
         return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }
 

@@ -1,8 +1,9 @@
-package com.rwl.Bit_coin.game;
+package com.rwl.Bit_coin.userDashboard;
 
 import com.rwl.Bit_coin.dtos.UserGameDto;
 import com.rwl.Bit_coin.entity.Game;
 import com.rwl.Bit_coin.enumm.ClubType;
+import com.rwl.Bit_coin.enumm.GameStatus;
 import com.rwl.Bit_coin.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,17 @@ public class ServiceImpl implements ServiceInterface {
         resultList.add(gamesByOwnGeneratedGamesClubs);
         resultList.add(gamesBySystemGeneratedClubs);
         return resultList;
+    }
+
+    @Override
+    public Integer countCompletedBcByUserId(Long userId) {
+        List<Game> gameList = userRepo.findById(userId).get().getGameList();
+        int count = 0;
+        for (Game game : gameList) {
+            if(game.getGameStatus().equals(GameStatus.COMPLETED)){
+                count++;
+            }
+        }
+        return count;
     }
 }

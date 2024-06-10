@@ -20,10 +20,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //    @Query("SELECT * FROM users ORDER BY monthlyWinning DESC LIMIT 10;")
 //    List<User> findTop10UsersByMonthlyWinning();
 
-    User findByFirstName(String firstName);
     boolean existsByEmail(String email);
 
+    User findByFirstName(String firstName);
+
     User findByEmail(String email);
+
     boolean existsByPhoneNumber(String phoneNumber);
 
 }
