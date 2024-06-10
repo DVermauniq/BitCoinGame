@@ -14,16 +14,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "select * from user order by monthly_winning desc limit 10",nativeQuery = true)
+    @Query(value = "select * from user order by monthly_winning desc limit 10", nativeQuery = true)
     List<User> findTop10UsersByMonthlyWinning();
 
-//    @Query("SELECT * FROM user ORDER BY monthlyWinning DESC LIMIT 10;")
+    //    @Query("SELECT * FROM users ORDER BY monthlyWinning DESC LIMIT 10;")
 //    List<User> findTop10UsersByMonthlyWinning();
-   User findByFirstName(String firstName);
 
-//    @Query("SELECT * FROM users ORDER BY monthlyWinning DESC LIMIT 10;")
-//    List<User> findTop10UsersByMonthlyWinning();
-//   User findByUsername(String firstName);
-//   User findByFirstname(String firstName);
+    boolean existsByEmail(String email);
+
+    User findByFirstName(String firstName);
+
+    User findByEmail(String email);
+
+    boolean existsByPhoneNumber(String phoneNumber);
 
 }
