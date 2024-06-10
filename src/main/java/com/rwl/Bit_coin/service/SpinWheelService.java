@@ -7,14 +7,12 @@ public interface SpinWheelService {
 
 	Game enterInGame(Long userId, Long gameId);
 
-	String spinWheel(Long gameId);
+	void spinAndDeclareWinner(Long gameId);
 
 	String declareWinner(User user, Game game);
 
 	User getMonthlyWinner(Long gameId, int month);
 
 //	User sendWinningPrice(User user, double prizeamount);
-	
-	
 
 }
