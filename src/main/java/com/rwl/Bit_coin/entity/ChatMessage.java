@@ -1,4 +1,4 @@
-package com.rwl.Bit_coin.dtos;
+package com.rwl.Bit_coin.entity;
 
 
 import lombok.*;

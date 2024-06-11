@@ -16,7 +16,6 @@ public class LeaderBoardServiceImpl implements LeaderBoardServiceInterface {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private ServiceImpl service;
 
@@ -30,6 +29,6 @@ public class LeaderBoardServiceImpl implements LeaderBoardServiceInterface {
         User user = userRepository.findById(userId).orElseThrow();
 
         GameStatsDto gameStatsDto = new GameStatsDto(user.getFirstName(), user.getLastName(), service.findGamesByUserId(userId).get(0).size() + service.findGamesByUserId(userId).get(1).size(), service.findGamesByUserId(userId).get(1).size(), service.findGamesByUserId(userId).get(0).size(), user.getMonthlyWinning())
-        return ResponseEntity.ok(gameStatsDto);
-    }
+            return ResponseEntity.ok(gameStatsDto);
+        }
 }

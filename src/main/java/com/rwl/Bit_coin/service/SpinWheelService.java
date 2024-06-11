@@ -14,7 +14,5 @@ public interface SpinWheelService {
 	User getMonthlyWinner(Long gameId, int month);
 
 //	User sendWinningPrice(User user, double prizeamount);
-	
-	
 
 }

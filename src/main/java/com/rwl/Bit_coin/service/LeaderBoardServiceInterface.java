@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface LeaderBoardServiceInterface {
     List<User> getTop10Winner() throws Exception;
+
     ResponseEntity<?> getWinnerDetails(Long userId) throws Exception;
+
 }
