@@ -2,12 +2,15 @@ package com.rwl.Bit_coin.controller;
 
 import com.rwl.Bit_coin.dtos.AddUserDto;
 import com.rwl.Bit_coin.dtos.UserResponseDto;
+import com.rwl.Bit_coin.entity.User;
 import com.rwl.Bit_coin.payload.request.SignupRequest;
 import com.rwl.Bit_coin.serviceImplementation.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -54,5 +57,13 @@ public class UserController {
     @PostMapping("/forget/verifyOtp")
     public ResponseEntity<String> verifyUserOtp(@RequestParam("email") String email, @RequestParam("enteredOtp") String enteredOtp) throws Exception {
         return userServiceImpl.userForgetPasswordVerifyVerificationCode(email, enteredOtp);
+    }
+    @GetMapping("/getFraudUser/{userId}")
+    public List<User> getUserByRating(@PathVariable() Long userId) throws Exception{
+        return userServiceImpl.getUserByRating(userId);
+    }
+    @PutMapping("/ratingUpdate/{userId}")
+    public ResponseEntity<?> ratingUpdate(@PathVariable() Long userId) throws Exception{
+        return userServiceImpl.ratingUpdate(userId);
     }
 }

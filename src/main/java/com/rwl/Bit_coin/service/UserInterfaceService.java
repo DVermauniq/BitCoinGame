@@ -3,8 +3,11 @@ package com.rwl.Bit_coin.service;
 
 import com.rwl.Bit_coin.dtos.AddUserDto;
 import com.rwl.Bit_coin.dtos.UserResponseDto;
+import com.rwl.Bit_coin.entity.User;
 import com.rwl.Bit_coin.payload.request.SignupRequest;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 
 public interface UserInterfaceService {
@@ -25,4 +28,6 @@ public interface UserInterfaceService {
     ResponseEntity<String> userForgetPasswordVerifyVerificationCode(String email, String enteredOtp) throws Exception;
 
 //    ResponseEntity<?> updateUser(UpdateUserDto updateUserDto);
+    List<User> getUserByRating(Long userId) throws Exception;
+    ResponseEntity<?> ratingUpdate(Long userId) throws Exception;
 }

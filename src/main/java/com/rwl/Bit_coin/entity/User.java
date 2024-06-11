@@ -1,5 +1,6 @@
 package com.rwl.Bit_coin.entity;
 
+import com.rwl.Bit_coin.enumm.Rating;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
@@ -36,7 +37,8 @@ public class User {
 	private String signatureUrl;
 	private String referralCode;
 	private double monthlyWinning; // total winning
-	private boolean activeStatus;
+	@Enumerated(EnumType.STRING)
+	private Rating rating;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Query> queryList;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -45,7 +47,6 @@ public class User {
 	private List<Game> gameList;
 	@ManyToMany
 	private List<Club> clubList;
-
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<WinRecord> winRecords;
 
