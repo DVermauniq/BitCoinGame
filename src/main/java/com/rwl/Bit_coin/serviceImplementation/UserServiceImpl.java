@@ -4,6 +4,7 @@ package com.rwl.Bit_coin.serviceImplementation;
 import com.rwl.Bit_coin.dtos.AddUserDto;
 import com.rwl.Bit_coin.dtos.UserResponseDto;
 import com.rwl.Bit_coin.entity.User;
+import com.rwl.Bit_coin.enumm.Rating;
 import com.rwl.Bit_coin.payload.request.SignupRequest;
 import com.rwl.Bit_coin.repo.UserRepository;
 import com.rwl.Bit_coin.service.UserInterfaceService;
@@ -150,6 +151,18 @@ public class UserServiceImpl implements UserInterfaceService {
             throw new Exception(e.getMessage());
         }
         return new ResponseEntity("Email Verify Successfully", HttpStatus.OK);
+    }
+
+    @Override
+    public List<User> getUserByRating(Long userId) throws Exception {
+        List<User> fraudList = userRepository.findUserByRating(Rating.ONE);
+        fraudList.addAll(userRepository.findUserByRating(Rating.TWO));
+        return fraudList;
+    }
+
+    @Override
+    public ResponseEntity<?> ratingUpdate(Long userId) throws Exception {
+        return null;
     }
 
 
