@@ -11,6 +11,5 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT * FROM users ORDER BY monthlyWinning DESC LIMIT 10;")
     List<User> findTop10UsersByMonthlyWinning();
-   User findByUsername(String firstName);
-   User findByFirstname(String firstName);
+     User findByFirstName(String firstName);
 }

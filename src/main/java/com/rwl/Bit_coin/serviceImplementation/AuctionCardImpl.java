@@ -33,7 +33,7 @@ public class AuctionCardImpl implements AuctionCardService {
 
     @Override
     public Game createAuctionCard(AuctionCardDto auctionCardDto, String firstName) {
-        User user = userRepository.findByFirstname(firstName);
+        User user = userRepository.findByFirstName(firstName);
         if (user == null || !user.getPassword().equals(auctionCardDto.getPassword())) {
             // Handle invalid user or password mismatch
             return null;
@@ -52,7 +52,7 @@ public class AuctionCardImpl implements AuctionCardService {
     }
 
     @Override
-    public Game addUserToAuctionFromClub(Long clubId, Long gameId, UserDto userDto) {
+    public void addUserToAuctionFromClub(Long clubId, Long gameId, UserDto userDto) {
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new RuntimeException("Club not found"));
         Game auction = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Auction not found"));
 
@@ -61,10 +61,9 @@ public class AuctionCardImpl implements AuctionCardService {
         user.setFirstName(userDto.getFirstName());
         user.setGameList(Collections.singletonList(auction));
         // Add the user to the auction's list of participants
-        //       game.getUsers().add(user);
+        auction.getUser().add(user);
         club.getUserList().add(user);
-//        return gameRepository.save(club);
-        return null;
+        clubRepository.save(club);
     }
 }
 
