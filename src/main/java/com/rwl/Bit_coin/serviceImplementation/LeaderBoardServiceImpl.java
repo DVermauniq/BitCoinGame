@@ -14,36 +14,36 @@ import java.util.stream.Collectors;
 @Service
 public class LeaderBoardServiceImpl implements LeaderBoardServiceInterface {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Override
-	public List<GameStatsDto> getTop10Winner() throws Exception {
-		List<User> top10Users = userRepository.findTop10UsersByMonthlyWinning();
-		return top10Users.stream().map(user -> new GameStatsDto(user.getFirstName(), user.getLastName(), 0, // totalGames
-																											// is not
-																											// available
-																											// in User
-																											// entity,
-																											// so set to
-																											// 0
-				null, // clubType is not available in User entity, so set to null
-				user.getMonthlyWinning(), user.getMonthlyWinning() // totalWinnings is not available in User entity, so
-																	// set to monthlyWinning
-		)).collect(Collectors.toList());
-	}
+    @Override
+    public List<GameStatsDto> getTop10Winner() throws Exception {
+        List<User> top10Users = userRepository.findTop10UsersByMonthlyWinning();
+        return top10Users.stream().map(user -> new GameStatsDto(user.getFirstName(), user.getLastName(), 0, // totalGames
+                // is not
+                // available
+                // in User
+                // entity,
+                // so set to
+                // 0
+                null, // clubType is not available in User entity, so set to null
+                user.getMonthlyWinning(), user.getMonthlyWinning() // totalWinnings is not available in User entity, so
+                // set to monthlyWinning
+        )).collect(Collectors.toList());
+    }
 
-	@Override
-	public ResponseEntity<?> getWinnerDetails(int userId) throws Exception {
-		User user = userRepository.findById((long) userId).orElseThrow();
-		GameStatsDto gameStatsDto = new GameStatsDto(user.getFirstName(), user.getLastName(), 0, // totalGames is not
-																									// available in User
-																									// entity, so set to
-																									// 0
-				null, // clubType is not available in User entity, so set to null
-				user.getMonthlyWinning(), user.getMonthlyWinning() // totalWinnings is not available in User entity, so
-																	// set to monthlyWinning
-		);
-		return ResponseEntity.ok(gameStatsDto);
-	}
+    @Override
+    public ResponseEntity<?> getWinnerDetails(int userId) throws Exception {
+        User user = userRepository.findById((long) userId).orElseThrow();
+        GameStatsDto gameStatsDto = new GameStatsDto(user.getFirstName(), user.getLastName(), 0, // totalGames is not
+                // available in User
+                // entity, so set to
+                // 0
+                null, // clubType is not available in User entity, so set to null
+                user.getMonthlyWinning(), user.getMonthlyWinning() // totalWinnings is not available in User entity, so
+                // set to monthlyWinning
+        );
+        return ResponseEntity.ok(gameStatsDto);
+    }
 }

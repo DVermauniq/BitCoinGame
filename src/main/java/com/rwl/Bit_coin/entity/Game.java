@@ -24,18 +24,14 @@ public class Game {
 	private Long numberOfPlayers;
 	private Double totalAmountCollected;
 	private Double amountPerPerson;
-
 	private LocalDate startDate;
 	@Enumerated(EnumType.STRING)
 	private GameDuration gameDuration;
 	@Enumerated(EnumType.STRING)
 	private GameStatus gameStatus;
-
 	private LocalDate date;
-
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private List<WinRecord> winnerList;
-
 	@ManyToOne
 	@JoinColumn
 	private Club club;

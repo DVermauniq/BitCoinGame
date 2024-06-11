@@ -1,6 +1,6 @@
 package com.rwl.Bit_coin.ChatBox;
 
-import com.rwl.Bit_coin.dtos.ChatMessage;
+import com.rwl.Bit_coin.entity.ChatMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ChatMessageController {
 
-    @Autowired
+
     SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/application")
