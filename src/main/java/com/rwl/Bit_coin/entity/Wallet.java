@@ -5,21 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BankDetails {
+public class Wallet {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long bankId;
-    @Column(unique = true)
-    private String accountNumber;
-    private String ifscCode;
-    private String passbookUrl;
-    private String paySlipUrl;
-    @ManyToOne
-    @JoinColumn
-    private Wallet wallet;
-
+    private Long walletId;
+    private long balance;
+    @OneToMany(mappedBy = "wallet",cascade = CascadeType.ALL)
+    private List<BankDetails> bankDetails;
+    @OneToOne
+    private User user;
 }
