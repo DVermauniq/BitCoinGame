@@ -1,6 +1,5 @@
 package com.rwl.Bit_coin.serviceImplementation;
 
-
 import com.rwl.Bit_coin.dtos.AuctionCardDto;
 import com.rwl.Bit_coin.dtos.UserDto;
 import com.rwl.Bit_coin.entity.Club;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 
 @Service
 public class AuctionCardImpl implements AuctionCardService {
@@ -55,7 +53,6 @@ public class AuctionCardImpl implements AuctionCardService {
     public void addUserToAuctionFromClub(Long clubId, Long gameId, UserDto userDto) {
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new RuntimeException("Club not found"));
         Game auction = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Auction not found"));
-
         User user = new User();
         user.setUserId(userDto.getUserId());
         user.setFirstName(userDto.getFirstName());
