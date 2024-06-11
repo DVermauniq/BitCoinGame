@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserInterfaceService {
 
     @Override
     public ResponseEntity<?> addUser(@NotNull SignupRequest signupRequest) {
-
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
             return new ResponseEntity<>("Email already taken", HttpStatus.NOT_ACCEPTABLE);
         }
@@ -113,7 +112,6 @@ public class UserServiceImpl implements UserInterfaceService {
     public AddUserDto updateUserPassword(String email, String password) throws Exception {
         User currUser = userRepository.findByEmail(email);
         AddUserDto newUser = new AddUserDto();
-
 //        currUser.setPassword(encoder.encode(password));
         try {
             userRepository.save(currUser);

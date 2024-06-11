@@ -18,11 +18,26 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findTop10UsersByMonthlyWinning();
     User findByFirstName(String firstName);
 
+<<<<<<< HEAD
     //    @Query("SELECT * FROM users ORDER BY monthlyWinning DESC LIMIT 10;")
 //    List<User> findTop10UsersByMonthlyWinning();
 
     boolean existsByEmail(String email);
 
+=======
+
+     User findByFirstName(String firstName);
+
+
+
+    //    @Query("SELECT * FROM users ORDER BY monthlyWinning DESC LIMIT 10;")
+//    List<User> findTop10UsersByMonthlyWinning();
+
+    boolean existsByEmail(String email);
+
+    User findByFirstName(String firstName);
+
+>>>>>>> 5494069675ca8d67b1f67d7bc2f73d51199e335c
     User findByEmail(String email);
 
     boolean existsByPhoneNumber(String phoneNumber);

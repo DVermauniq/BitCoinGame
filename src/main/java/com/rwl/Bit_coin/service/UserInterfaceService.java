@@ -25,7 +25,4 @@ public interface UserInterfaceService {
     ResponseEntity<String> userForgetPasswordVerifyVerificationCode(String email, String enteredOtp) throws Exception;
 
 //    ResponseEntity<?> updateUser(UpdateUserDto updateUserDto);
-
-
-
 }
