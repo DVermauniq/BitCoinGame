@@ -7,7 +7,7 @@ import com.rwl.Bit_coin.entity.Game;
 import com.rwl.Bit_coin.entity.User;
 import com.rwl.Bit_coin.enumm.GameType;
 import com.rwl.Bit_coin.repo.ClubRepository;
-import com.rwl.Bit_coin.repo.GameRepository;
+import com.rwl.Bit_coin.repo.GameRepo;
 import com.rwl.Bit_coin.repo.UserRepository;
 import com.rwl.Bit_coin.service.AuctionCardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class AuctionCardImpl implements AuctionCardService {
     private UserRepository userRepository;
 
     @Autowired
-    private GameRepository gameRepository;
+    private GameRepo gameRepository;
 
     @Override
     public Game createAuctionCard(AuctionCardDto auctionCardDto, String firstName) {

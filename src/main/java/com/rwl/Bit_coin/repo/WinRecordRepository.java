@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WinRecordRepository extends JpaRepository<WinRecord,Long> {
-    WinRecord findByGameIdAndUserId(Long gameId, Long userId);
+    WinRecord findByGameGameIdAndUserUserId(Long gameId, Long userId);
 }
+
