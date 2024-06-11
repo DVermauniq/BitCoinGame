@@ -23,6 +23,4 @@ public class WinRecord {
     @ManyToOne
     @JoinColumn
     private Game game;
-
-
 }
