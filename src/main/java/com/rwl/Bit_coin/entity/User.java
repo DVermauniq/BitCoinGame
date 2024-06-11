@@ -34,9 +34,9 @@ public class User {
 	private String aadhaarUrl;
 	private String imageUrl;
 	private String signatureUrl;
-	private boolean winner;
 	private String referralCode;
 	private double monthlyWinning; // total winning
+	private boolean activeStatus;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Query> queryList;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
