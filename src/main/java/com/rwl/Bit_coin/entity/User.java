@@ -43,6 +43,9 @@ public class User {
 	private List<Query> queryList;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<WalletTransactions> walletTransactions;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn
+	private Wallet wallet;
 	@ManyToMany
 	private List<Game> gameList;
 	@ManyToMany

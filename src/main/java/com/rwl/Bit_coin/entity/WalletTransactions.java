@@ -20,7 +20,7 @@ public class WalletTransactions {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long walletId;
     @Transient
-    private static double totalBalance;
+    private double totalBalance;
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
     private Double transactionAmount;
@@ -33,6 +33,5 @@ public class WalletTransactions {
     @ManyToOne
     @JoinColumn
     private Game game;
-    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
-    private List<BankDetails> bank;
+
 }

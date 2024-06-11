@@ -1,10 +1,7 @@
 package com.rwl.Bit_coin.service;
 
-import com.rwl.Bit_coin.entity.User;
-
 public interface WalletService {
 
-    void addMoney(int amount);
+    void addAmountToWallet(Long gameId,Double winAmount);
 
-    String CheckBalance(User userId);
 }
