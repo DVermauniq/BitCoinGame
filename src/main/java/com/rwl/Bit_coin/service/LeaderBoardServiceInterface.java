@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface LeaderBoardServiceInterface {
+
     List<GameStatsDto> getTop10Winner() throws Exception;
+
     ResponseEntity<?> getWinnerDetails(int userId) throws Exception;
 }

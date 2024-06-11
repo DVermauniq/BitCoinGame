@@ -14,8 +14,8 @@ import java.time.LocalDate;
 public class WinRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int recordId;
-    private int winAmount;
+    private Long recordId;
+    private Double winAmount;
     private LocalDate date;
     @ManyToOne
     @JoinColumn
@@ -23,6 +23,4 @@ public class WinRecord {
     @ManyToOne
     @JoinColumn
     private Game game;
-
-
 }

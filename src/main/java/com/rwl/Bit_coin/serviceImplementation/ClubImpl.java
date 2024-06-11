@@ -7,7 +7,9 @@ import com.rwl.Bit_coin.entity.User;
 import com.rwl.Bit_coin.repo.ClubRepository;
 import com.rwl.Bit_coin.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ClubImpl implements ClubService {
 
     @Autowired
@@ -15,7 +17,7 @@ public class ClubImpl implements ClubService {
 
     @Override
     public Club createClub(ClubDto clubDto) {
-        Club club=new Club();
+        Club club = new Club();
         club.setClubId(clubDto.getClubId());
         club.setClubName(clubDto.getClubName());
         return clubRepository.save(club);

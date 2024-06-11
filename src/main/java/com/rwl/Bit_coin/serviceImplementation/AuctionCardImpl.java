@@ -1,6 +1,5 @@
 package com.rwl.Bit_coin.serviceImplementation;
 
-
 import com.rwl.Bit_coin.dtos.AuctionCardDto;
 import com.rwl.Bit_coin.dtos.UserDto;
 import com.rwl.Bit_coin.entity.Club;
@@ -8,7 +7,7 @@ import com.rwl.Bit_coin.entity.Game;
 import com.rwl.Bit_coin.entity.User;
 import com.rwl.Bit_coin.enumm.GameType;
 import com.rwl.Bit_coin.repo.ClubRepository;
-import com.rwl.Bit_coin.repo.GameRepository;
+import com.rwl.Bit_coin.repo.GameRepo;
 import com.rwl.Bit_coin.repo.UserRepository;
 import com.rwl.Bit_coin.service.AuctionCardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 
 @Service
 public class AuctionCardImpl implements AuctionCardService {
@@ -29,7 +27,7 @@ public class AuctionCardImpl implements AuctionCardService {
     private UserRepository userRepository;
 
     @Autowired
-    private GameRepository gameRepository;
+    private GameRepo gameRepository;
 
     @Override
     public Game createAuctionCard(AuctionCardDto auctionCardDto, String firstName) {
@@ -52,19 +50,17 @@ public class AuctionCardImpl implements AuctionCardService {
     }
 
     @Override
-    public Game addUserToAuctionFromClub(Long clubId, Long gameId, UserDto userDto) {
+    public void addUserToAuctionFromClub(Long clubId, Long gameId, UserDto userDto) {
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new RuntimeException("Club not found"));
         Game auction = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Auction not found"));
-
         User user = new User();
         user.setUserId(userDto.getUserId());
         user.setFirstName(userDto.getFirstName());
         user.setGameList(Collections.singletonList(auction));
         // Add the user to the auction's list of participants
-        //       game.getUsers().add(user);
+        auction.getUser().add(user);
         club.getUserList().add(user);
-//        return gameRepository.save(club);
-        return null;
+        clubRepository.save(club);
     }
 }
 

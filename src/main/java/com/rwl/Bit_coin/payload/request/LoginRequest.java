@@ -3,10 +3,10 @@ package com.rwl.Bit_coin.payload.request;
 
 public class LoginRequest {
 
-//    @NotBlank
+    //    @NotBlank
     private String usernameOrEmailOrPhoneNumber;
 
-//    @NotBlank
+    //    @NotBlank
     private String password;
 
     public String getUsernameOrEmailOrPhoneNumber() {
