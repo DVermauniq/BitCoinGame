@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/club")
-public class clubController {
+public class ClubController {
 
     @Autowired
     private ClubImpl clubimpl;
