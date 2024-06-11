@@ -8,5 +8,5 @@ import com.rwl.Bit_coin.entity.User;
 public interface UserGameInterface {
 
     Game enterInGame( Long userId, Long gameId);
-    void startGame(int amount, String password);
+    void startGame(Long gameId, int amount, String password);
 }

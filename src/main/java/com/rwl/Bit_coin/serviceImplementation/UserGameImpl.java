@@ -3,6 +3,7 @@ package com.rwl.Bit_coin.serviceImplementation;
 
 import com.rwl.Bit_coin.entity.Game;
 import com.rwl.Bit_coin.entity.User;
+import com.rwl.Bit_coin.entity.WalletTransactions;
 import com.rwl.Bit_coin.repo.GameRepo;
 import com.rwl.Bit_coin.repo.UserRepository;
 import com.rwl.Bit_coin.service.UserGameInterface;
@@ -33,8 +34,12 @@ public class UserGameImpl implements UserGameInterface {
     }
 
     @Override
-    public void startGame(int amount, String password) {
-
+    public void startGame(Long gameId, int amount, String password) {
+        Game game =gameRepo.findById(gameId).orElseThrow();
+        if(game.getNumberOfPlayers()!=0){
+            List<WalletTransactions> walletTransactions = game.getWalletTransactionsList();
+        }
     }
+
 
 }

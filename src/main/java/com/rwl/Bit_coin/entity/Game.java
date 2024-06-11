@@ -30,7 +30,6 @@ public class Game {
 	private GameDuration gameDuration;
 	@Enumerated(EnumType.STRING)
 	private GameStatus gameStatus;
-	private List<Long> winnerListByOrder;
 
 	private LocalDate date;
 
