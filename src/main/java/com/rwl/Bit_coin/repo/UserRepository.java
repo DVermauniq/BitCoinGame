@@ -17,11 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select * from user order by monthly_winning desc limit 10", nativeQuery = true)
     List<User> findTop10UsersByMonthlyWinning();
 
-
-     User findByFirstName(String firstName);
-
-
-
     //    @Query("SELECT * FROM users ORDER BY monthlyWinning DESC LIMIT 10;")
 //    List<User> findTop10UsersByMonthlyWinning();
 

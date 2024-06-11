@@ -37,7 +37,10 @@ public class UserGameImpl implements UserGameInterface {
     public void startGame(Long gameId, int amount, String password) {
         Game game =gameRepo.findById(gameId).orElseThrow();
         if(game.getNumberOfPlayers()!=0){
+            WalletTransactions wallet = new WalletTransactions();
+            
             List<WalletTransactions> walletTransactions = game.getWalletTransactionsList();
+
         }
     }
 
