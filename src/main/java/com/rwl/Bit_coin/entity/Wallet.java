@@ -15,7 +15,7 @@ public class Wallet {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long walletId;
-    private long balance;
+    private double balance;
     @OneToMany(mappedBy = "wallet",cascade = CascadeType.ALL)
     private List<BankDetails> bankDetails;
     @OneToOne

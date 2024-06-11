@@ -20,7 +20,7 @@ public class WalletTransactions {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long walletId;
     @Transient
-    private static double totalBalance;
+    private double totalBalance;
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
     private Double transactionAmount;
