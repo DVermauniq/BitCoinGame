@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserInterfaceService {
 
-
     ResponseEntity<?> addUser(SignupRequest signupRequest);
 
     ResponseEntity<?> findUserById(Long userId) throws Exception;
