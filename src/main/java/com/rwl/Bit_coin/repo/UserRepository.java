@@ -9,7 +9,17 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    @Query("SELECT * FROM users ORDER BY monthlyWinning DESC LIMIT 10;")
+
+    @Query("SELECT * FROM user ORDER BY monthlyWinning DESC LIMIT 10;")
     List<User> findTop10UsersByMonthlyWinning();
+
      User findByFirstName(String firstName);
+
+
+//    @Query("SELECT * FROM users ORDER BY monthlyWinning DESC LIMIT 10;")
+//    List<User> findTop10UsersByMonthlyWinning();
+//   User findByUsername(String firstName);
+//   User findByFirstname(String firstName);
+
+
 }
