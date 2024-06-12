@@ -18,8 +18,5 @@ public class BankDetails {
     private String ifscCode;
     private String passbookUrl;
     private String paySlipUrl;
-    @ManyToOne
-    @JoinColumn
-    private Wallet wallet;
 
 }
