@@ -28,7 +28,13 @@ public class LeaderBoardServiceImpl implements LeaderBoardServiceInterface {
     public ResponseEntity<?> getWinnerDetails(Long userId) throws Exception {
         User user = userRepository.findById(userId).orElseThrow();
 
-        GameStatsDto gameStatsDto = new GameStatsDto(user.getFirstName(), user.getLastName(), service.findGamesByUserId(userId).get(0).size() + service.findGamesByUserId(userId).get(1).size(), service.findGamesByUserId(userId).get(1).size(), service.findGamesByUserId(userId).get(0).size(), user.getMonthlyWinning())
+        GameStatsDto gameStatsDto = new GameStatsDto(user.getFirstName(),
+                user.getLastName(),
+                service.findGamesByUserId(userId).get(0).size() + service.findGamesByUserId(userId).get(1).size(),
+                service.findGamesByUserId(userId).get(1).size(),
+                service.findGamesByUserId(userId).get(0).size(),
+                service.countCompletedBcByUserId(userId),
+                user.getMonthlyWinning());
             return ResponseEntity.ok(gameStatsDto);
         }
 }
