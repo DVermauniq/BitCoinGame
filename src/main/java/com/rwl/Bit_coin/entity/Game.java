@@ -29,7 +29,6 @@ public class Game {
 	private GameDuration gameDuration;
 	@Enumerated(EnumType.STRING)
 	private GameStatus gameStatus;
-	private LocalDate date;
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private List<WinRecord> winnerList;
 	@ManyToOne

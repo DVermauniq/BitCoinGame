@@ -1,12 +1,12 @@
 package com.rwl.Bit_coin.entity;
 
-import com.rwl.Bit_coin.enumm.Rating;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Range;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -37,8 +37,8 @@ public class User {
 	private String signatureUrl;
 	private String referralCode;
 	private double monthlyWinning; // total winning
-	@Enumerated(EnumType.STRING)
-	private Rating rating;
+	@Range(min = 0, max = 5)
+	private Double rating;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Query> queryList;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

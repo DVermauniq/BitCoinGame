@@ -28,5 +28,5 @@ public interface UserInterfaceService {
 
 //    ResponseEntity<?> updateUser(UpdateUserDto updateUserDto);
     List<User> getUserByRating(Long userId) throws Exception;
-    ResponseEntity<?> ratingUpdate(Long userId) throws Exception;
+    void ratingUpdate(Long userId) throws Exception;
 }

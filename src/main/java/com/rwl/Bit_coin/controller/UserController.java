@@ -63,7 +63,7 @@ public class UserController {
         return userServiceImpl.getUserByRating(userId);
     }
     @PutMapping("/ratingUpdate/{userId}")
-    public ResponseEntity<?> ratingUpdate(@PathVariable() Long userId) throws Exception{
-        return userServiceImpl.ratingUpdate(userId);
+    public void ratingUpdate(@PathVariable() Long userId) throws Exception{
+        userServiceImpl.ratingUpdate(userId);
     }
 }
