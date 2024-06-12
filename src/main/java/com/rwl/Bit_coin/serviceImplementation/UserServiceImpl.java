@@ -3,10 +3,12 @@ package com.rwl.Bit_coin.serviceImplementation;
 
 import com.rwl.Bit_coin.dtos.AddUserDto;
 import com.rwl.Bit_coin.dtos.UserResponseDto;
+import com.rwl.Bit_coin.entity.Game;
 import com.rwl.Bit_coin.entity.User;
-import com.rwl.Bit_coin.enumm.Rating;
+import com.rwl.Bit_coin.enumm.GameStatus;
 import com.rwl.Bit_coin.payload.request.SignupRequest;
 import com.rwl.Bit_coin.repo.UserRepository;
+import com.rwl.Bit_coin.repo.WalletTransactionRepo;
 import com.rwl.Bit_coin.service.UserInterfaceService;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +16,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserInterfaceService {
     @Autowired
+    WalletTransactionRepo walletTransactionRepo;
+    @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private OtpServiceImplementation otpServiceImplementation;
-
 
     @Override
     public ResponseEntity<?> addUser(@NotNull SignupRequest signupRequest) {
@@ -155,16 +159,28 @@ public class UserServiceImpl implements UserInterfaceService {
 
     @Override
     public List<User> getUserByRating(Long userId) throws Exception {
-        List<User> fraudList = userRepository.findUserByRating(Rating.ONE);
-        fraudList.addAll(userRepository.findUserByRating(Rating.TWO));
+        List<User> fraudList = userRepository.findUserByRating(1.0);
+        fraudList.addAll(userRepository.findUserByRating(2.0));
         return fraudList;
     }
 
     @Override
-    public ResponseEntity<?> ratingUpdate(Long userId) throws Exception {
-        return null;
-    }
+    public void ratingUpdate(Long userId) throws Exception {
+        User currUser = userRepository.findById(userId).orElseThrow();
+        List<Game> gameList = currUser.getGameList();
+        for (Game game : gameList) {
+            if (game.getGameStatus().equals(GameStatus.ONGOING)) {
+                Long numberOfMonths = ChronoUnit.MONTHS.between(game.getStartDate(), LocalDate.now());
+                Double totalAmount = game.getAmountPerPerson() * numberOfMonths;
 
+                Double amountPaidByUser = walletTransactionRepo.findSumOfTransactionAmountByGameGameIdAndUserUserId(game.getGameId(), userId);
+                if (amountPaidByUser < totalAmount) {
+                    currUser.setRating(currUser.getRating() - 0.5);
+                    userRepository.save(currUser);
+                }
+            }
+        }
+    }
 
 //    @Override
 //    public ResponseEntity<?> updateUser(UpdateUserDto updateUserDto){

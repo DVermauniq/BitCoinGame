@@ -1,7 +1,6 @@
 package com.rwl.Bit_coin.repo;
 
 import com.rwl.Bit_coin.entity.User;
-import com.rwl.Bit_coin.enumm.Rating;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -27,5 +26,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByPhoneNumber(String phoneNumber);
 
-    List<User> findUserByRating(Rating rating);
+    List<User> findUserByRating(Double rating);
 }
