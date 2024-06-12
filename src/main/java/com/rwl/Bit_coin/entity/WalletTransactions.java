@@ -27,8 +27,8 @@ public class WalletTransactions {
     private LocalDate transactionDate;
     @Enumerated(EnumType.STRING)
     private TransactionStatus transactionStatus;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId",nullable = false)
+    @ManyToOne
+    @JoinColumn
     private User user;
     @ManyToOne
     @JoinColumn
