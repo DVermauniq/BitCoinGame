@@ -24,4 +24,7 @@ public class Club {
 	@ManyToMany
 	private List<User> userList;
 
+	@OneToMany(mappedBy = "club", cascade = CascadeType.ALL)
+	private List<Story> storyList;
+
 }

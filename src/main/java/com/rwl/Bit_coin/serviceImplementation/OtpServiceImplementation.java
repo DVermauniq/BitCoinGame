@@ -28,7 +28,6 @@ public class OtpServiceImplementation implements OtpServiceInterface {
     private JavaMailSender javaMailSender;
     private long otpGenerationTimeMillis; // Timestamp for OTP generation
 
-
     @Override
     public ResponseEntity<String> sendEmailOtp(String userEmailId, String subject, String messageToSend)
             throws Exception {
@@ -41,7 +40,6 @@ public class OtpServiceImplementation implements OtpServiceInterface {
         javaMailSender.send(message);
         return ResponseEntity.ok("Message sent to " + userEmailId);
     }
-
 
     @Override
     public ResponseEntity<String> verifyEmailOtp(String userEmailId, String enteredOTP) throws Exception {

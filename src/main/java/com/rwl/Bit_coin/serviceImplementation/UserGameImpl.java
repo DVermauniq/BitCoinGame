@@ -3,18 +3,15 @@ package com.rwl.Bit_coin.serviceImplementation;
 
 import com.rwl.Bit_coin.entity.Game;
 import com.rwl.Bit_coin.entity.User;
-import com.rwl.Bit_coin.entity.Wallet;
 import com.rwl.Bit_coin.entity.WalletTransactions;
 import com.rwl.Bit_coin.enumm.TransactionStatus;
 import com.rwl.Bit_coin.enumm.TransactionType;
 import com.rwl.Bit_coin.repo.GameRepo;
 import com.rwl.Bit_coin.repo.UserRepository;
-import com.rwl.Bit_coin.repo.WalletRepo;
 import com.rwl.Bit_coin.repo.WalletTransactionRepo;
 import com.rwl.Bit_coin.service.UserGameInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,8 +22,6 @@ public class UserGameImpl implements UserGameInterface {
     GameRepo gameRepo;
     @Autowired
     UserRepository userRepo;
-    @Autowired
-    WalletRepo walletRepo;
     @Autowired
     WalletTransactionRepo transaction;
 
@@ -48,15 +43,17 @@ public class UserGameImpl implements UserGameInterface {
     @Override
     public WalletTransactions startGame(Long gameId, Long userId, String password) {
         Game game =gameRepo.findById(gameId).orElseThrow();
-        Wallet wallet =walletRepo.findByUserId(userId).orElseThrow();
-        WalletTransactions transact = new WalletTransactions();
-        transact.setTotalBalance(wallet.getBalance());
+        User user =userRepo.findById(userId).orElseThrow();
+        WalletTransactions transact = transaction.findByRecentTransactionDate();
+        double tempBalance = transact.getTotalBalance();
+        transact = new WalletTransactions();
+        transact.setTotalBalance(tempBalance);
         transact.setGame(game);
-        transact.setUser(wallet.getUser());
+        transact.setUser(user);
         transact.setTransactionAmount(game.getAmountPerPerson());
         transact.setTransactionType(TransactionType.DEBITED);
         transact.setTransactionDate(LocalDate.now());
-        wallet.setBalance(wallet.getBalance()-transact.getTransactionAmount());
+        transaction.save(transact);
         transact.setTransactionStatus(TransactionStatus.PENDING);
 
         if(game.getNumberOfPlayers()!=0){
@@ -67,10 +64,13 @@ public class UserGameImpl implements UserGameInterface {
             transact.setTransactionStatus(TransactionStatus.COMPLETED);
             enterInGame(userId, gameId);
             game.setNumberOfPlayers(game.getNumberOfPlayers()-1);
+
         }
         else{
             transact.setTransactionStatus(TransactionStatus.FAILED);
-            wallet.setBalance(transact.getTotalBalance());
+            transact.setTotalBalance(tempBalance);
+            transaction.save(transact);
+
         }
 
         return transact;
