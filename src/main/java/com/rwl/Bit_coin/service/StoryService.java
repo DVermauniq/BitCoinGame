@@ -10,7 +10,7 @@ import io.jsonwebtoken.io.IOException;
 
 public interface StoryService {
 
-    Story uploadStatus(Long playerId, MultipartFile file) throws IOException, java.io.IOException;
+    Story uploadStatus(Long userId, MultipartFile file) throws IOException, java.io.IOException;
 	
 
 }

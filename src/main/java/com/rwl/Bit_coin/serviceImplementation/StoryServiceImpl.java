@@ -30,7 +30,7 @@ public class StoryServiceImpl implements StoryService {
 	private AmazonS3 amazonS3;
 
 	@Override
-	public Story uploadStatus(Long playerId, MultipartFile file) throws IOException {
+	public Story uploadStatus(Long userId, MultipartFile file) throws IOException {
 		if (file.isEmpty()) {
 			throw new IOException("File is empty");
 		}

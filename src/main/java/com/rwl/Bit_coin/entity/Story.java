@@ -23,7 +23,6 @@ public class Story {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String player;
 	private String imageUrl;
 	private LocalDateTime createdAt;
 

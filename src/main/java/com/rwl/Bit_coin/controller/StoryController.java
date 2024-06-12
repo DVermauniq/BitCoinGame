@@ -15,20 +15,20 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/status")
-public class StatusController {
+public class StoryController {
 
 	@Autowired
 	private StoryServiceImpl statusService;
 
-	@PostMapping("/upload")
-	public ResponseEntity<Story> uploadStatus(@RequestParam Long playerId, @RequestParam("file") MultipartFile file) {
-		try {
-			Story uploadedStatus = statusService.uploadStatus(playerId, file);
-			return ResponseEntity.ok(uploadedStatus);
-		} catch (IOException e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-		}
-	}
+	 @PostMapping("/upload")
+	    public ResponseEntity<Story> uploadStatus(@RequestParam Long userId, @RequestParam("file") MultipartFile file) {
+	        try {
+	            Story uploadedStatus = statusService.uploadStatus(userId, file);
+	            return ResponseEntity.ok(uploadedStatus);
+	        } catch (IOException e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	        }
+	 }
 
 	@DeleteMapping("/delete")
 	public ResponseEntity<String> deleteOldStatuses() {
