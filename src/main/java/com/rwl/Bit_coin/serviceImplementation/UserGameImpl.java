@@ -44,7 +44,7 @@ public class UserGameImpl implements UserGameInterface {
     public WalletTransactions startGame(Long gameId, Long userId, String password) {
         Game game =gameRepo.findById(gameId).orElseThrow();
         User user =userRepo.findById(userId).orElseThrow();
-        WalletTransactions transact = transaction.findByRecentTransactionDate();
+        WalletTransactions transact = transaction.findByRecentTransactionDate(userId);
         double tempBalance = transact.getTotalBalance();
         transact = new WalletTransactions();
         transact.setTotalBalance(tempBalance);
