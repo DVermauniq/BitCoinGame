@@ -39,6 +39,7 @@ public class User {
 	private double monthlyWinning; // total winning
 	@Range(min = 0, max = 5)
 	private Double rating;
+	private Boolean fraud;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Query> queryList;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
