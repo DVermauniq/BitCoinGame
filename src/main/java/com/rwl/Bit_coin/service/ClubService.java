@@ -8,5 +8,5 @@ public interface ClubService {
 
     Club createClub(ClubDto clubDto);
 
-    Club addUserToClub(Long clubId, UserDto userDTO);
+    Club addUserToClub(Long clubId,Long userId);
 }

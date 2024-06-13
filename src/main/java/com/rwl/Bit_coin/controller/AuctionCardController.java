@@ -16,12 +16,11 @@ public class AuctionCardController {
     @Autowired
     private AuctionCardImpl auctionCardService;
 
-    @PostMapping("/create-auction-card")
-    public ResponseEntity<?> createAuctionCard(@RequestBody AuctionCardDto auctionCardDTO) {
-        // Assuming you have authentication and the username is available in the security context
-        String firstName = "logged-in-username"; // Get username from security context
+    @PostMapping("/create-auction-game")
+    public ResponseEntity<?> createAuctionCard(@RequestBody AuctionCardDto auctionCardDTO,@RequestParam Long userId,@RequestParam String password,@RequestParam Long gameId) {
 
-        Game game = auctionCardService.createAuctionCard(auctionCardDTO, firstName);
+
+        Game game = auctionCardService.createAuctionCard(auctionCardDTO, userId, password, gameId);
         if (game != null) {
             return new ResponseEntity<>(game, HttpStatus.CREATED);
         } else {
@@ -30,9 +29,9 @@ public class AuctionCardController {
     }
 
     @PostMapping("/{gameId}/participants/{userId}")
-    public ResponseEntity<String> addParticipantToAuction(@PathVariable Long gameId, @PathVariable Long clubId, @RequestBody UserDto userDto) {
+    public ResponseEntity<String> addParticipantToAuction(@PathVariable Long gameId,@PathVariable Long userId, @PathVariable Long clubId, @RequestBody UserDto userDto) {
         try {
-            auctionCardService.addUserToAuctionFromClub(clubId, gameId, userDto);
+            auctionCardService.addUserToAuctionFromClub(clubId, gameId,userId, userDto);
             return ResponseEntity.ok("User added to the auction successfully");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
