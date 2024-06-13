@@ -12,5 +12,5 @@ public interface WalletTransactionRepo extends JpaRepository<WalletTransactions,
     @Modifying
     @Transactional
     @Query(value = "select * from wallet_transactions order by transaction_date desc limit 1",nativeQuery = true)
-    WalletTransactions findByRecentTransactionDate();
+    WalletTransactions findByRecentTransactionDate(Long userId);
 }
