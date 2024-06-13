@@ -167,6 +167,9 @@ public class UserServiceImpl implements UserInterfaceService {
     @Override
     public void ratingUpdate(Long userId) throws Exception {
         User currUser = userRepository.findById(userId).orElseThrow();
+        if(currUser.getFraud()){
+            return;
+        }
         List<Game> gameList = currUser.getGameList();
         for (Game game : gameList) {
             if (game.getGameStatus().equals(GameStatus.ONGOING)) {
@@ -176,6 +179,9 @@ public class UserServiceImpl implements UserInterfaceService {
                 Double amountPaidByUser = walletTransactionRepo.findSumOfTransactionAmountByGameGameIdAndUserUserId(game.getGameId(), userId);
                 if (amountPaidByUser < totalAmount) {
                     currUser.setRating(currUser.getRating() - 0.5);
+                    if (currUser.getRating() < 1){
+                        currUser.setFraud(true);
+                    }
                     userRepository.save(currUser);
                 }
             }
