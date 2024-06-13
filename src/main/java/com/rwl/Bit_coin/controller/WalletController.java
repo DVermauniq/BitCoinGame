@@ -12,10 +12,10 @@ public class WalletController {
     @Autowired
     private WalletServiceImpl walletService;
 
-    @PostMapping("/{gameId}/win")
-    public ResponseEntity<Void> declareWinner(@PathVariable Long gameId,@RequestParam Double winAmount) {
-        walletService.addAmountToWallet(gameId,winAmount);
-        return ResponseEntity.ok().build();
+    @PostMapping("/add-amount")
+    public ResponseEntity<String> addAmountToWallet(@RequestParam Long userId, @RequestParam Double winAmount) {
+        walletService.addAmountToWallet(userId, winAmount);
+        return ResponseEntity.ok("Amount added to wallet successfully");
     }
 
 }
