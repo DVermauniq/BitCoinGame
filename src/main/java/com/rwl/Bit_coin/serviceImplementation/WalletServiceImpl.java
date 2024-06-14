@@ -48,9 +48,11 @@ public class WalletServiceImpl  implements WalletService {
     }
 
     private double getUserCurrentBalance(Long userId) {
-        WalletTransactions recentTransaction = transactionRepository.findByRecentTransactionDate(userId);
+        WalletTransactions recentTransaction = transactionRepository.findByUserIdAndTransactionDate(userId);
         return recentTransaction!= null? recentTransaction.getTotalBalance() : 0.0;
     }
+
+
 }
 
 

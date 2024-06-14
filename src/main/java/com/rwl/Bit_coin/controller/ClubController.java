@@ -20,8 +20,8 @@ public class ClubController {
      }
 
      @PostMapping("/user-add-club")
-     public Club addUsertoClub(@PathVariable long clubId , @RequestBody UserDto userDto){
-        return clubimpl.addUserToClub(clubId,userDto);
+     public Club addUsertoClub(@RequestParam Long userId,@RequestParam Long clubId ){
+        return clubimpl.addUserToClub(clubId,userId);
 
      }
 }

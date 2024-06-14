@@ -30,31 +30,33 @@ public class AuctionCardImpl implements AuctionCardService {
     private GameRepo gameRepository;
 
     @Override
-    public Game createAuctionCard(AuctionCardDto auctionCardDto, String firstName) {
-        User user = userRepository.findByFirstName(firstName);
-        if (user == null || !user.getPassword().equals(auctionCardDto.getPassword())) {
-            // Handle invalid user or password mismatch
+    public Game createAuctionCard(AuctionCardDto auctionCardDto, Long userId,String password,Long gameId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        Game game=gameRepository.findById(gameId).orElseThrow();
+        if ( !user.getPassword().equals(auctionCardDto.getPassword())) {
             return null;
         }
-        Game game = new Game();
+
+//        Game game = new Game();
         game.setGameType(GameType.AUCTION); // Assuming Auction is a game type
         game.setNumberOfPlayers(auctionCardDto.getNoOfPeople().longValue());
         game.setAmountPerPerson(auctionCardDto.getAmountPerPerson().doubleValue());
         //    game.setDate(auctionCardDTO.getDate());
         // Set other properties from DTO
-        List<User> users = new ArrayList<>();
-        users.add(user);
-        game.setUser(users);
+//        List<User> users = new ArrayList<>();
+//        users.add(user);
+//        game.setUser(users);
         //  user.setGames(users);
         return gameRepository.save(game);
     }
 
     @Override
-    public void addUserToAuctionFromClub(Long clubId, Long gameId, UserDto userDto) {
+    public void addUserToAuctionFromClub(Long clubId, Long gameId,Long userId, UserDto userDto) {
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new RuntimeException("Club not found"));
         Game auction = gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Auction not found"));
-        User user = new User();
-        user.setUserId(userDto.getUserId());
+       User user=userRepository.findById(userId).orElseThrow();
+//        User user = new User();
+//        user.setUserId(userDto.getUserId());
         user.setFirstName(userDto.getFirstName());
         user.setGameList(Collections.singletonList(auction));
         // Add the user to the auction's list of participants
